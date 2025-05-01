@@ -1,0 +1,16 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .nav-link:hover {
+    background-color: #0dcaf0;
+    color: #000 !important;
+  }
+  
+  .dark-mode {
+    background-color: #1c1c1c;
+    color: #f8f9fa;
+  }
+  
