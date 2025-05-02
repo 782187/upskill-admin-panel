@@ -10,7 +10,7 @@ function CourseCard() {
 
   const fetchCourses = () => {
     axios
-      .get("http://localhost:8080/UpskillServlet/get-courses")
+      .get("https://upskill-servlet.onrender.com/UpskillServlet/get-courses")
       .then((res) => {
         setCourses(res.data);
       })
@@ -23,7 +23,7 @@ function CourseCard() {
     if (window.confirm("Are you sure you want to delete this course?")) {
       axios({
         method: "post",
-        url: "http://localhost:8080/UpskillServlet/delete-course",
+        url: "https://upskill-servlet.onrender.com/UpskillServlet/delete-course",
         params: { id: id },
       })
         .then((res) => {
