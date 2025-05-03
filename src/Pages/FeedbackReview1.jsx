@@ -12,7 +12,7 @@ function FeedbackReview() {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("https://upskill-servlet.onrender.com/FetchFeedbackServlet");
+      const res = await axios.get("https://upskill-servlet.onrender.com/upskill-servlet/FetchFeedbackServlet");
       setReviews(res.data);
     } catch (error) {
       console.error("Error fetching reviews:", error);
@@ -35,7 +35,7 @@ function FeedbackReview() {
       formData.append("photo", photo);
     }
     try {
-      await axios.post("https://upskill-servlet.onrender.com/SubmitFeedbackServlet", formData, {
+      await axios.post("https://upskill-servlet.onrender.com/upskill-servlet/SubmitFeedbackServlet", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -57,7 +57,7 @@ function FeedbackReview() {
       const formData = new FormData();
       formData.append("name", review.name);
       formData.append("course", review.course);
-      await axios.post("https://upskill-servlet.onrender.com/DeleteFeedbackServlet", formData, {
+      await axios.post("https://upskill-servlet.onrender.com/upskill-servlet/DeleteFeedbackServlet", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
