@@ -10,14 +10,14 @@ function ManageEnquiry() {
 
   const fetchEnquiries = () => {
     axios
-      .get("https://upskill-servlet.onrender.com/UpskillServlet/get-enquiries")
+      .get("https://upskill-servlet.onrender.com/get-enquiries")
       .then((res) => setStudents(res.data))
       .catch(() => alert("Failed to fetch data"));
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this enquiry?")) {
-      axios.post("https://upskill-servlet.onrender.com/UpskillServlet/delete-enquiry", null, {
+      axios.post("https://upskill-servlet.onrender.com/delete-enquiry", null, {
           params: { id },
         })
         .then((res) => {
