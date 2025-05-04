@@ -27,7 +27,7 @@ function ManageCourse() {
     formData.append("certificateimg", certificateImage);
 
     try {
-      const response = await axios.post("https://upskill-servlet.onrender.com/uploadCourse", formData, {
+      const response = await axios.post("https://upskill-server.onrender.com/uploadCourse", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

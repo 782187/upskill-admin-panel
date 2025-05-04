@@ -11,7 +11,7 @@ function Dashboard() {
   }, []);
 
   const fetchEnquiries = () => {
-    axios.get("https://upskill-servlet.onrender.com/get-enquiries")
+    axios.get("https://upskill-server.onrender.com/get-enquiries")
       .then((res) => {
         setStudents(res.data.length);
       })
@@ -19,7 +19,7 @@ function Dashboard() {
   };
 
   const fetchCourse = () =>{
-    axios.get("https://upskill-servlet.onrender.com/get-courses")
+    axios.get("https://upskill-server.onrender.com/get-courses")
       .then((res) => {
         setCourse(res.data.length);
       })
