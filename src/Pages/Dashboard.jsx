@@ -4,7 +4,7 @@ import axios from "axios";
 function Dashboard() {
   const [students, setStudents] = useState(0);
   const [course, setCourse] = useState(0);
-  const [visiter,setVisiter] = useState(null);
+  const [visiter,setVisiter] = useState(0);
 
   useEffect(() => {
     fetchEnquiries();
@@ -28,9 +28,9 @@ function Dashboard() {
   };
 
   const fetchVisiters = () =>{
-    axios.get("https://upskill-server.onrender.com/track-visitor")
+    axios.get("https://upskill-server.onrender.com/getVisits")
       .then((res) => {
-        setVisiter(res.data);
+        setVisiter(res.visiter);
       })
       .catch(() => alert("Failed to fetch data"));
   };
