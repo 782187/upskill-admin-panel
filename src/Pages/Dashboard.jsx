@@ -4,7 +4,7 @@ import axios from "axios";
 function Dashboard() {
   const [students, setStudents] = useState(0);
   const [course, setCourse] = useState(0);
-  const [visiter,setVisiter] = useState(0);
+  const [visitors, setVisitors] = useState(0);
 
   useEffect(() => {
     fetchEnquiries();
@@ -31,9 +31,9 @@ function Dashboard() {
   const fetchVisiters = () =>{
     axios.get("https://upskill-server.onrender.com/getVisits")
       .then((res) => {
-        setVisiter(res.data);
+        setVisitors(res.data.totalVisits);
       })
-      .catch(() => alert("Failed to fetch data"));
+      .catch(() => alert("Failed to fetch Visitors data"));
   };
   return (
     <div className="container py-4">
@@ -108,7 +108,7 @@ function Dashboard() {
             </div>
             <div className="card-body">
               <h5 className="card-title">Number Of Visiters</h5>
-              <h2 className="card-text text-dark fw-bold">{visiter}</h2>
+              <h2 className="card-text text-dark fw-bold">{visitors}</h2>
             </div>
           </div>
         </div>
