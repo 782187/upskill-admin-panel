@@ -4,6 +4,7 @@ import axios from "axios";
 function Dashboard() {
   const [students, setStudents] = useState(0);
   const [course, setCourse] = useState(0);
+  const [visiter,setVisiter] = useState(null);
 
   useEffect(() => {
     fetchEnquiries();
@@ -24,7 +25,15 @@ function Dashboard() {
         setCourse(res.data.length);
       })
       .catch(() => alert("Failed to fetch data"));
-  }
+  };
+
+  const fetchVisiters = () =>{
+    axios.get("https://upskill-server.onrender.com/track-visitor")
+      .then((res) => {
+        setVisiter(res.data);
+      })
+      .catch(() => alert("Failed to fetch data"));
+  };
   return (
     <div className="container py-4">
       <h2 className="fw-bold mb-4 text-center">Dashboard</h2>
@@ -97,8 +106,8 @@ function Dashboard() {
               <i className="bi bi-layers" style={{ fontSize: "1.5rem" }}></i>
             </div>
             <div className="card-body">
-              <h5 className="card-title">Registration Students</h5>
-              <h2 className="card-text text-dark fw-bold">200</h2>
+              <h5 className="card-title">Number Of Visiters</h5>
+              <h2 className="card-text text-dark fw-bold">{visiter}</h2>
             </div>
           </div>
         </div>
