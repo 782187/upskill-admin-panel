@@ -9,6 +9,7 @@ function Dashboard() {
   useEffect(() => {
     fetchEnquiries();
     fetchCourse();
+    fetchVisiters();
   }, []);
 
   const fetchEnquiries = () => {
