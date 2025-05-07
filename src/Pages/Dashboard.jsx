@@ -9,7 +9,7 @@ function Dashboard() {
   useEffect(() => {
     fetchEnquiries();
     fetchCourse();
-    fetchVisiters();
+    fetchVisitors();
   }, []);
 
   const fetchEnquiries = () => {
@@ -28,9 +28,9 @@ function Dashboard() {
       .catch(() => alert("Failed to fetch data"));
   };
 
-  const fetchVisiters = () =>{
+  const fetchVisitors = () =>{
     axios.get("https://upskill-server.onrender.com/getVisits")
-      .then((res) => {
+      .then((res) =>{
         setVisitors(res.data.totalVisits);
       })
       .catch(() => alert("Failed to fetch Visitors data"));
@@ -107,7 +107,7 @@ function Dashboard() {
               <i className="bi bi-layers" style={{ fontSize: "1.5rem" }}></i>
             </div>
             <div className="card-body">
-              <h5 className="card-title">Number Of Visiters</h5>
+              <h5 className="card-title">Number Of Visitors</h5>
               <h2 className="card-text text-dark fw-bold">{visitors}</h2>
             </div>
           </div>
