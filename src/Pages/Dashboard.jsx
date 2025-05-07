@@ -30,7 +30,7 @@ function Dashboard() {
   const fetchVisiters = () =>{
     axios.get("https://upskill-server.onrender.com/getVisits")
       .then((res) => {
-        setVisiter(res.visiter);
+        setVisiter(res.data);
       })
       .catch(() => alert("Failed to fetch data"));
   };
