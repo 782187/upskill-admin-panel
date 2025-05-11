@@ -20,21 +20,42 @@ function Header() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light px-4 shadow-sm position-sticky top-0 z-2 w-100">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm position-sticky top-0 z-2 w-100">
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        <span className="navbar-brand fw-bold">Admin Panel</span>
-        <div className="d-flex align-items-center gap-3">
-          <Bell className="text-dark" role="button" />
-          <User className="text-dark" role="button" />
-          <Link to="/" className="text-dark" title="Logout">
-            <LogOut />
-          </Link>
+        <span className="navbar-brand fw-bold fs-3 text-primary">Admin Panel</span>
+        <div className="d-flex align-items-center gap-4">
           <button
-            className="btn btn-outline-dark p-1"
+            className="btn btn-outline-primary p-2 rounded-circle d-flex align-items-center justify-content-center"
+            style={{ position: "relative" }}
+            title="Notifications"
+          >
+            <Bell className="text-dark" size={20} />
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              5
+            </span>
+          </button>
+
+          <button
+            className="btn btn-outline-primary p-2 rounded-circle d-flex align-items-center justify-content-center"
+            title="User Profile"
+          >
+            <User className="text-dark" size={20} />
+          </button>
+
+          <Link to="/" className="btn btn-outline-danger p-2 rounded-circle d-flex align-items-center justify-content-center" title="Logout">
+            <LogOut className="text-danger" size={20} />
+          </Link>
+
+          <button
+            className="btn btn-outline-primary p-2 rounded-circle"
             onClick={toggleTheme}
             title="Toggle Dark/Light Mode"
           >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {isDarkMode ? (
+              <Sun size={20} className="text-warning" />
+            ) : (
+              <Moon size={20} className="text-dark" />
+            )}
           </button>
         </div>
       </div>

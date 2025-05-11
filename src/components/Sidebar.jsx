@@ -18,7 +18,7 @@ function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const navItems = [
-    { to: "/", label: "Dashboard", icon: <Home className="me-2" /> },
+    { to: "/dashboard", label: "Dashboard", icon: <Home className="me-2" /> },
     { to: "/enquiries", label: "Enquiries", icon: <Users className="me-2" /> },
     { to: "/courses", label: "Courses", icon: <Book className="me-2" /> },
     { to: "/feedback", label: "Feedback", icon: <MessageCircle className="me-2" /> },
