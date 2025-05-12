@@ -57,11 +57,8 @@ function Dashboard() {
 
   return (
     <div className="container py-4">
-      <div className="mb-4">
-        <h2 className="fw-bold text-dark d-flex align-items-center gap-2">
-          <span className="icon-grid text-primary fs-3"></span> Admin Dashboard
-        </h2>
-        <p className="text-muted">Welcome back! Here's an overview of your data</p>
+      <div className="mb-2">
+        <p className="badge bg-success p-2 text-white">Welcome back! Here's an overview of your data</p>
       </div>
 
       <div className="row g-3 mb-4">
