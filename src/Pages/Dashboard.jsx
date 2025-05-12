@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
+} from "recharts";
+import {
+  FaUsers, FaChalkboardTeacher, FaEye,
+  FaRegNewspaper, FaUserGraduate, FaCalendarAlt
+} from "react-icons/fa";
+import "./Dashboard.css";
 
 function Dashboard() {
   const [students, setStudents] = useState(0);
@@ -14,103 +22,107 @@ function Dashboard() {
 
   const fetchEnquiries = () => {
     axios.get("https://upskill-server.onrender.com/get-enquiries")
-      .then((res) => {
-        setStudents(res.data.length);
-      })
-      .catch(() => alert("Failed to fetch data"));
+      .then((res) => setStudents(res.data.length))
+      .catch(() => alert("Failed to fetch enquiries"));
   };
 
-  const fetchCourse = () =>{
+  const fetchCourse = () => {
     axios.get("https://upskill-server.onrender.com/get-courses")
-      .then((res) => {
-        setCourse(res.data.length);
-      })
-      .catch(() => alert("Failed to fetch data"));
+      .then((res) => setCourse(res.data.length))
+      .catch(() => alert("Failed to fetch courses"));
   };
 
-  const fetchVisitors = () =>{
+  const fetchVisitors = () => {
     axios.get("https://upskill-server.onrender.com/getVisits")
-      .then((res) =>{
-        setVisitors(res.data.totalVisits);
-      })
-      .catch(() => alert("Failed to fetch Visitors data"));
+      .then((res) => setVisitors(res.data.totalVisits))
+      .catch(() => alert("Failed to fetch visitors"));
   };
+
+  const barData = [
+    { name: "Courses", value: 4 + course },
+    { name: "Enquiries", value: students },
+    { name: "Visitors", value: visitors },
+    { name: "Blogs", value: 23 },
+    { name: "Applicants", value: 50 },
+    { name: "Events", value: 8 },
+  ];
+
+  const pieData = [
+    { name: "Courses", value: 4 + course },
+    { name: "Enquiries", value: students },
+    { name: "Blogs", value: 23 },
+  ];
+
+  const COLORS = ["#6366f1", "#10b981", "#14b8a6", "#f59e0b", "#ef4444", "#64748b"];
+
   return (
     <div className="container py-4">
-      <h2 className="fw-bold mb-4 text-center">Dashboard</h2>
+      <div className="mb-4">
+        <h2 className="fw-bold text-dark d-flex align-items-center gap-2">
+          <span className="icon-grid text-primary fs-3"></span> Admin Dashboard
+        </h2>
+        <p className="text-muted">Welcome back! Here's an overview of your data</p>
+      </div>
+
+      <div className="row g-3 mb-4">
+        <StatCard icon={<FaChalkboardTeacher />} label="Courses" value={4 + course} color="#6366f1" />
+        <StatCard icon={<FaUserGraduate />} label="Enquiries" value={students} color="#f59e0b" />
+        <StatCard icon={<FaEye />} label="Visitors" value={visitors} color="#14b8a6" />
+        <StatCard icon={<FaRegNewspaper />} label="Blogs" value={23} color="#64748b" />
+        <StatCard icon={<FaUsers />} label="Applicants" value={50} color="#10b981" />
+        <StatCard icon={<FaCalendarAlt />} label="Events" value={8} color="#ef4444" />
+      </div>
+
       <div className="row g-4">
-        <div className="col-md-4">
-          <div className="card shadow-sm text-center border-primary">
-            <div className="card-header bg-primary text-white">
-              <i className="bi bi-book" style={{ fontSize: "1.5rem" }}></i>
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Total Courses</h5>
-              <h2 className="card-text text-primary fw-bold">{4+course}</h2>
-            </div>
+        <div className="col-md-6">
+          <div className="card shadow-sm border-0 p-3">
+            <h5 className="text-dark fw-bold mb-3">📊 Statistics Overview</h5>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={barData}>
+                <XAxis dataKey="name" stroke="#64748b" />
+                <YAxis stroke="#64748b" />
+                <Tooltip />
+                <Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#6366f1" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="col-md-4">
-          <div className="card shadow-sm text-center border-info">
-            <div className="card-header bg-info text-white">
-              <i className="bi bi-briefcase" style={{ fontSize: "1.5rem" }}></i>
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Job Applicants</h5>
-              <h2 className="card-text text-info fw-bold">50</h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card shadow-sm text-center border-danger">
-            <div className="card-header bg-danger text-white">
-              <i className="bi bi-calendar" style={{ fontSize: "1.5rem" }}></i>
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Total Events</h5>
-              <h2 className="card-text text-danger fw-bold">8</h2>
-            </div>
+        <div className="col-md-6">
+          <div className="card shadow-sm border-0 p-3">
+            <h5 className="text-dark fw-bold mb-3">🎯 Distribution Overview</h5>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  outerRadius={100}
+                  label
+                >
+                  {pieData.map((_, index) => (
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="row g-4 mt-4">
-        <div className="col-md-4">
-          <div className="card shadow-sm text-center border-warning">
-            <div className="card-header bg-warning text-white">
-              <i className="bi bi-clipboard" style={{ fontSize: "1.5rem" }}></i>
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Enquiry Students</h5>
-              <h2 className="card-text text-warning fw-bold">{students}</h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card shadow-sm text-center border-secondary">
-            <div className="card-header bg-secondary text-white">
-              <i className="bi bi-file-text" style={{ fontSize: "1.5rem" }}></i>
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Total Blogs</h5>
-              <h2 className="card-text text-secondary fw-bold">23</h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-md-4">
-          <div className="card shadow-sm text-center border-dark">
-            <div className="card-header bg-dark text-white">
-              <i className="bi bi-layers" style={{ fontSize: "1.5rem" }}></i>
-            </div>
-            <div className="card-body">
-              <h5 className="card-title">Number Of Visitors</h5>
-              <h2 className="card-text text-dark fw-bold">{visitors}</h2>
-            </div>
-          </div>
+function StatCard({ icon, label, value, color }) {
+  return (
+    <div className="col-6 col-md-4 col-lg-2">
+      <div className="card stat-card border-0 shadow-sm text-white" style={{ backgroundColor: color }}>
+        <div className="card-body text-center">
+          <div className="fs-3 mb-2">{icon}</div>
+          <h6 className="fw-semibold">{label}</h6>
+          <h4 className="fw-bold">{value}</h4>
         </div>
       </div>
     </div>
