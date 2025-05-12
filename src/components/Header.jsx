@@ -7,7 +7,7 @@ function Header() {
 
   useEffect(() => {
     const savedMode = localStorage.getItem("theme");
-    if (savedMode) {
+    if (savedMode){
       setIsDarkMode(savedMode === "dark");
     }
   }, []);
@@ -22,7 +22,7 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm position-sticky top-0 z-2 w-100">
       <div className="container-fluid d-flex justify-content-between align-items-center">
-        <span className="navbar-brand fw-bold fs-3 text-primary">Admin Panel</span>
+        <span className="navbar-brand fw-bold fs-3 text-primary">Upskill Admin Panel</span>
         <div className="d-flex align-items-center gap-4">
           <button
             className="btn btn-outline-primary p-2 rounded-circle d-flex align-items-center justify-content-center"

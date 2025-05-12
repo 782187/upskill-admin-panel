@@ -32,14 +32,14 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
-        <Route path="/courses" element={<AdminLayout><ManageCourses /></AdminLayout>} />
-        <Route path="/blogs" element={<AdminLayout><ManageBlogs /></AdminLayout>} />
-        <Route path="/events" element={<AdminLayout><ManageEvents /></AdminLayout>} />
-        <Route path="/enquiries" element={<AdminLayout><ManageEnquiry /></AdminLayout>} />
-        <Route path="/coursecard" element={<AdminLayout><CourseCard /></AdminLayout>} />
-        <Route path="/feedback" element={<AdminLayout><FeedbackReview /></AdminLayout>} />
-        <Route path="/placement" element={<AdminLayout><ManagePlacement /></AdminLayout>} />
+        <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>}/>
+        <Route path="/courses" element={<AdminLayout><ManageCourses /></AdminLayout>}/>
+        <Route path="/blogs" element={<AdminLayout><ManageBlogs /></AdminLayout>}/>
+        <Route path="/events" element={<AdminLayout><ManageEvents /></AdminLayout>}/>
+        <Route path="/enquiries" element={<AdminLayout><ManageEnquiry /></AdminLayout>}/>
+        <Route path="/coursecard" element={<AdminLayout><CourseCard /></AdminLayout>}/>
+        <Route path="/feedback" element={<AdminLayout><FeedbackReview /></AdminLayout>}/>
+        <Route path="/placement" element={<AdminLayout><ManagePlacement /></AdminLayout>}/>
       </Routes>
     </Router>
   );
