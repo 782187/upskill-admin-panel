@@ -6,7 +6,7 @@ const EnquiryNotificationToast = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const socket = new WebSocket('wss://upskill-server.onrender.com/ws/enquiry');
+    const socket = new WebSocket('wss://upskill-server.onrender.com/enquiry');
 
     socket.onopen = () => {
       console.log('WebSocket connected ✅');
