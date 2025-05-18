@@ -8,6 +8,7 @@ import {
   FaRegNewspaper, FaUserGraduate, FaCalendarAlt
 } from "react-icons/fa";
 import "./Dashboard.css";
+import EnquiryNotificationToast from "./EnquiryNotificationToast";
 
 function Dashboard() {
   const [students, setStudents] = useState(0);
@@ -108,6 +109,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <EnquiryNotificationToast/>
     </div>
   );
 }
