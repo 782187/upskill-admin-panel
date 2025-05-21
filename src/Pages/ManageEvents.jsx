@@ -35,7 +35,6 @@ function ManageEvents() {
     <div className="container py-4">
       <h2 className="mb-4 fw-bold">Manage Events</h2>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="row g-3 mb-5">
         <div className="col-md-12">
           <input
@@ -78,7 +77,6 @@ function ManageEvents() {
         </div>
       </form>
 
-      {/* Event List */}
       <div className="row">
         {events.map((event, index) => (
           <div key={index} className="col-md-6 mb-4">

@@ -53,7 +53,6 @@ function ManagePlacement() {
     <div className="container py-4">
       <h2 className="fw-bold mb-4 text-center">Placement Records</h2>
 
-      {/* Form to add/edit records */}
       <form onSubmit={handleSubmit} className="row g-3 mb-4">
         <div className="col-md-6 col-lg-4">
           <input

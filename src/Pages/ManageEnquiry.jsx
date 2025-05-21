@@ -35,7 +35,6 @@ function ManageEnquiry() {
     <div className="container py-4">
       <h2 className="fw-bold mb-4 text-center">Student Enquiries</h2>
       
-      {/* Table for larger screens */}
       <div className="table-responsive d-none d-lg-block">
         <table className="table table-bordered table-striped text-center">
           <thead className="table-light">
@@ -78,7 +77,6 @@ function ManageEnquiry() {
         </table>
       </div>
 
-      {/* Card view for smaller screens */}
       <div className="row d-block d-lg-none">
         {students.length > 0 ? (
           students.map((student) => (

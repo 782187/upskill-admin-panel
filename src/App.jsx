@@ -14,12 +14,14 @@ import ManagePlacement from "./Pages/ManagePlacment";
 import CourseCard from "./components/CourseCard";
 import LoginPage from "./components/LoginPage";
 import WelcomePage from "./components/WelcomePage";
+import FirebaseNotificationSetup from "./FirebaseNotificationSetup";
 
 const AdminLayout = ({ children }) => (
   <div className="d-flex flex-column flex-lg-row">
     <Sidebar />
     <div className="flex-grow-1">
       <Header />
+      <FirebaseNotificationSetup />
       {children}
     </div>
   </div>

@@ -19,21 +19,21 @@ const FirebaseNotificationSetup = () => {
                 },
                 body: JSON.stringify({ token: currentToken })
               })
-                .then(res => res.json())
-                .then(data => console.log("Subscription response:", data))
-                .catch(err => console.error("Error subscribing to topic:", err));
+              .then(res => res.json())
+              .then(data => console.log("Subscription response:", data))
+              .catch(err => console.error("Error subscribing to topic:", err));
             } else {
-              console.log('No registration token available. Request permission to generate one.');
+              console.log('No registration token available.');
             }
           })
           .catch((err) => {
-            console.log('An error occurred while retrieving token. ', err);
+            console.log('Error retrieving token: ', err);
           });
       }
     });
 
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
+      console.log('Message received in foreground: ', payload);
       alert(payload.notification.title + "\n" + payload.notification.body);
     });
   }, []);
