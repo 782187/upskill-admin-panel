@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -14,34 +14,36 @@ import ManagePlacement from "./Pages/ManagePlacment";
 import CourseCard from "./components/CourseCard";
 import LoginPage from "./components/LoginPage";
 import WelcomePage from "./components/WelcomePage";
-import FirebaseNotificationSetup from "./FirebaseNotificationSetup";
+import EnquiryNotificationToast from "./Pages/EnquiryNotificationToast";
 
 const AdminLayout = ({ children }) => (
   <div className="d-flex flex-column flex-lg-row">
     <Sidebar />
     <div className="flex-grow-1">
+      <EnquiryNotificationToast/>
       <Header />
-      <FirebaseNotificationSetup />
-      {children}
+      <div className="p-3">{children}</div>
     </div>
   </div>
 );
 
 function App() {
+
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>}/>
-        <Route path="/courses" element={<AdminLayout><ManageCourses /></AdminLayout>}/>
-        <Route path="/blogs" element={<AdminLayout><ManageBlogs /></AdminLayout>}/>
-        <Route path="/events" element={<AdminLayout><ManageEvents /></AdminLayout>}/>
-        <Route path="/enquiries" element={<AdminLayout><ManageEnquiry /></AdminLayout>}/>
-        <Route path="/coursecard" element={<AdminLayout><CourseCard /></AdminLayout>}/>
-        <Route path="/feedback" element={<AdminLayout><FeedbackReview /></AdminLayout>}/>
-        <Route path="/placement" element={<AdminLayout><ManagePlacement /></AdminLayout>}/>
+        <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
+        <Route path="/courses" element={<AdminLayout><ManageCourses /></AdminLayout>} />
+        <Route path="/blogs" element={<AdminLayout><ManageBlogs /></AdminLayout>} />
+        <Route path="/events" element={<AdminLayout><ManageEvents /></AdminLayout>} />
+        <Route path="/enquiries" element={<AdminLayout><ManageEnquiry /></AdminLayout>} />
+        <Route path="/coursecard" element={<AdminLayout><CourseCard /></AdminLayout>} />
+        <Route path="/feedback" element={<AdminLayout><FeedbackReview /></AdminLayout>} />
+        <Route path="/placement" element={<AdminLayout><ManagePlacement /></AdminLayout>} />
       </Routes>
     </Router>
   );

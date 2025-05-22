@@ -1,21 +1,25 @@
-importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
+importScripts("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js");
 
 firebase.initializeApp({
-    apiKey: "AIzaSyDW05Js1HelvkEDDDEMn6osOXhFeSQvEZc",
-    authDomain: "admindashboardnotification.firebaseapp.com",
-    projectId: "admindashboardnotification",
-    storageBucket: "admindashboardnotification.firebasestorage.app",
-    messagingSenderId: "181121028054",
-    appId: "1:181121028054:web:5eafad2baca63eb38c1e77"
+  apiKey: "AIzaSyCP7Tbb66rUgfyvA50sqVPbObAw_A-Yezo",
+  authDomain: "myprojectnotifications-8916d.firebaseapp.com",
+  projectId: "myprojectnotifications-8916d",
+  storageBucket: "myprojectnotifications-8916d.firebasestorage.app",
+  messagingSenderId: "491410102542",
+  appId: "1:491410102542:web:7517f5ca45cba13fc71f5f",
+  measurementId: "G-DTX2C6PLV0"
 });
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function (payload) {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
-    self.registration.showNotification(payload.notification.title, {
-        body: payload.notification.body,
-        icon: '/logo.png'
-    });
+messaging.onBackgroundMessage(function(payload){
+  console.log("Received background message: ", payload);
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: '/logo.png',
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
 });
