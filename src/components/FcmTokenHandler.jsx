@@ -6,7 +6,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCP7Tbb66rUgfyvA50sqVPbObAw_A-Yezo",
   authDomain: "myprojectnotifications-8916d.firebaseapp.com",
   projectId: "myprojectnotifications-8916d",
-  storageBucket: "myprojectnotifications-8916d.appspot.com",
+  storageBucket: "myprojectnotifications-8916d.appspot.com", // ✅ FIXED HERE
   messagingSenderId: "491410102542",
   appId: "1:491410102542:web:7517f5ca45cba13fc71f5f",
   measurementId: "G-DTX2C6PLV0"
@@ -48,21 +48,25 @@ function sendTokenToBackend(token, adminId) {
 export default function FcmTokenHandler({ adminId }) {
   useEffect(() => {
     requestFirebaseNotificationPermission()
-      .then(() => getToken(messaging, { vapidKey: "BDohq_qOBVSW-h1t_Tv-emvero7UsnLK7sSrbk0iyTGBTpN8qClK7N09uyYD5T97SvRipTgZJ2E67LllAYqOJfI" }))
+      .then(() =>
+        getToken(messaging, {
+          vapidKey: "BDohq_qOBVSW-h1t_Tv-emvero7UsnLK7sSrbk0iyTGBTpN8qClK7N09uyYD5T97SvRipTgZJ2E67LllAYqOJfI"
+        })
+      )
       .then(token => {
         if (token) {
           console.log("FCM Token:", token);
           sendTokenToBackend(token, adminId);
         } else {
-          console.warn("No registration token available. Request permission to generate one.");
+          console.warn("No registration token available.");
         }
       })
       .catch(err => {
-        console.error("An error occurred while retrieving token.", err);
+        console.error("Error retrieving FCM token:", err);
       });
 
     onMessage(messaging, payload => {
-      console.log("Message received in foreground:", payload);
+      console.log("Foreground message received:", payload);
     });
   }, [adminId]);
 
