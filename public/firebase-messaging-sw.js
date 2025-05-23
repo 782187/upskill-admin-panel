@@ -1,23 +1,24 @@
-importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCP7Tbb66rUgfyvA50sqVPbObAw_A-Yezo",
-  authDomain: "myprojectnotifications-8916d.firebaseapp.com",
-  projectId: "myprojectnotifications-8916d",
-  storageBucket: "myprojectnotifications-8916d.appspot.com", 
-  messagingSenderId: "491410102542",
-  appId: "1:491410102542:web:7517f5ca45cba13fc71f5f",
-  measurementId: "G-DTX2C6PLV0"
+  apiKey: "AIzaSyCHxauU6UEJJLOlbljyI9tEPJEWOOAu8aI",
+  authDomain: "pushnotifications-b2b51.firebaseapp.com",
+  projectId: "pushnotifications-b2b51",
+  storageBucket: "pushnotifications-b2b51.appspot.com", 
+  messagingSenderId: "733666808831",
+  appId: "1:733666808831:web:654910659bfdb73175cdca",
+  measurementId: "G-YW4XVFYMNX"
 });
 
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = payload.notification?.title || 'Notification';
+  console.log('[firebase-messaging-sw.js] Received background message:', payload);
+
+  const notificationTitle = payload.notification?.title || 'Default Title';
   const notificationOptions = {
-    body: payload.notification?.body || 'You have a new message.',
+    body: payload.notification?.body || 'Default Body',
     icon: '/logo.png'
   };
 

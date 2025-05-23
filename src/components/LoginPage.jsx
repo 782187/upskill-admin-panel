@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Logo from './Logo';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Logo from "./Logo";
+import { sendFcmToken } from "./sendFcmToken";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (username === 'upskill' && password === 'upskill@21') {
-      navigate('/dashboard'); 
+      localStorage.setItem("adminId", username);
+
+      try {
+        await sendFcmToken(username);
+      } catch (err) {
+        console.error("FCM token registration failed:", err);
+      }
+
+      navigate('/dashboard');
     } else {
       setError('Invalid username or password');
     }
   };
 
+
   return (
     <div className="vh-100 d-flex justify-content-center align-items-center bg-light">
-      <div className="card p-4 shadow" style={{ width: '100%', maxWidth: '400px' }}>
+      <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px" }}>
         <div className="text-center mb-3">
           <Logo />
           <p className="text-muted">Login to upskill dashboard</p>
