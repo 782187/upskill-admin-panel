@@ -39,6 +39,7 @@ export const requestNotificationPermission = async (adminId) => {
           token: token,
           adminId: adminId
         }),
+        credentials: "include" 
       });
 
       const result = await response.json();
