@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.11.1/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js');
 
 firebase.initializeApp({
   apiKey: "AIzaSyCHxauU6UEJJLOlbljyI9tEPJEWOOAu8aI",
@@ -13,25 +13,14 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function (payload) {
+messaging.onBackgroundMessage(function(payload) {
   console.log("[firebase-messaging-sw.js] Received background message ", payload);
-
-  const { title, body, image } = payload.notification;
-
+  
+  const notificationTitle = payload.notification.title;
   const notificationOptions = {
-    body: body,
-    icon: "/logo.png",
-    image: image,
-    data: {
-      url: "https://upskill-admin-panel.onrender.com/dashboard" // optional: click target
-    }
+    body: payload.notification.body,
+    icon: "/logo.png"
   };
 
-  self.registration.showNotification(title, notificationOptions);
-});
-
-self.addEventListener("notificationclick", function (event) {
-  event.notification.close();
-  const targetUrl = event.notification.data?.url || "/";
-  event.waitUntil(clients.openWindow(targetUrl));
+  self.registration.showNotification(notificationTitle, notificationOptions);
 });

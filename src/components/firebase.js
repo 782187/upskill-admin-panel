@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCHxauU6UEJJLOlbljyI9tEPJEWOOAu8aI",
   authDomain: "pushnotifications-b2b51.firebaseapp.com",
   projectId: "pushnotifications-b2b51",
-  storageBucket: "pushnotifications-b2b51.firebasestorage.app",
+  storageBucket: "pushnotifications-b2b51.appspot.app",
   messagingSenderId: "733666808831",
   appId: "1:733666808831:web:654910659bfdb73175cdca",
   measurementId: "G-YW4XVFYMNX"
