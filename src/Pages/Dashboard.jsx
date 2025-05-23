@@ -9,8 +9,18 @@ import {
 } from "react-icons/fa";
 import "./Dashboard.css";
 import EnquiryNotificationToast from "./EnquiryNotificationToast";
+import { onMessageListener } from "../components/firebase";
 
 function Dashboard() {
+  useEffect(() => {
+  const unsubscribe = onMessageListener().then((payload) => {
+    console.log('Foreground notification:', payload);
+    alert(`📢 ${payload.notification.title}\n${payload.notification.body}`);
+  });
+
+  return () => unsubscribe;
+}, []);
+
   const [students, setStudents] = useState(0);
   const [course, setCourse] = useState(0);
   const [visitors, setVisitors] = useState(0);

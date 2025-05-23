@@ -14,9 +14,6 @@ import ManagePlacement from "./Pages/ManagePlacment";
 import CourseCard from "./components/CourseCard";
 import LoginPage from "./components/LoginPage";
 import WelcomePage from "./components/WelcomePage";
-import { onMessage } from "firebase/messaging";
-import { messaging } from "./components/firebase";
-
 
 const AdminLayout = ({ children }) => (
   <div className="d-flex flex-column flex-lg-row">
@@ -29,23 +26,6 @@ const AdminLayout = ({ children }) => (
 );
 
 function App() {
-  onMessage(messaging, (payload) => {
-  console.log('Foreground message:', payload);
-  
-});
-  useEffect(() => {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(registration => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch(error => {
-        console.error('Service Worker registration failed:', error);
-      });
-  }
-}, []);
-
-
   return (
     <Router>
       <Routes>

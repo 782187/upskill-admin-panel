@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
-import { sendFcmToken } from "./sendFcmToken";
+import { requestNotificationPermission } from "./firebase";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +15,7 @@ const LoginPage = () => {
       localStorage.setItem("adminId", username);
 
       try {
-        await sendFcmToken(username);
+        await requestNotificationPermission(username);
       } catch (err) {
         console.error("FCM token registration failed:", err);
       }
