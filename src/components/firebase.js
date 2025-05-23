@@ -30,7 +30,7 @@ export const requestNotificationPermission = async (adminId) => {
       console.log("FCM token:", token);
 
       // Send token and adminId to backend
-      const response = await fetch("https://upskill-backend-url.onrender.com/register-fcm-token", {
+      const response = await fetch("https://upskill-server.onrender.com/register-fcm-token", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
