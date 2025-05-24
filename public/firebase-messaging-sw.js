@@ -14,19 +14,19 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message', payload);
-
-  const title = payload?.notification?.title || "New Notification";
-  const body = payload?.notification?.body || "You have a new message.";
-
+  console.log('[firebase-messaging-sw.js] Received background message:', payload);
+  const title = payload.notification?.title || "New Notification";
+  const body = payload.notification?.body || "You have a new message.";
   const notificationOptions = {
-    body: String(body), 
-    icon: "/logo.png",  
+    body,
+    icon: "/logo.png",
   };
+  self.registration.showNotification(title, notificationOptions);
+});
 
-  try {
-    self.registration.showNotification(title, notificationOptions);
-  } catch (err) {
-    console.log("Error showing notification:", err);
-  }
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow('https://upskill-admin-panel.onrender.com/dashboard')
+  );
 });

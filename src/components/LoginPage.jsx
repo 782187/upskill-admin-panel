@@ -21,8 +21,8 @@ const LoginPage = () => {
       } catch (err) {
         console.error("FCM token registration failed:", err);
       }
-
       navigate("/dashboard");
+
     } else {
       setError("Invalid username or password");
     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -15,6 +15,8 @@ import CourseCard from "./components/CourseCard";
 import LoginPage from "./components/LoginPage";
 import WelcomePage from "./components/WelcomePage";
 
+import { onMessageListener } from "./components/firebase";
+
 const AdminLayout = ({ children }) => (
   <div className="d-flex flex-column flex-lg-row">
     <Sidebar />
@@ -26,8 +28,28 @@ const AdminLayout = ({ children }) => (
 );
 
 function App() {
+  const [notification, setNotification] = useState(null);
+
+  useEffect(() => {
+    onMessageListener()
+      .then((payload) => {
+        console.log("Foreground notification received:", payload);
+        setNotification({
+          title: payload.notification.title,
+          body: payload.notification.body,
+        });
+      })
+      .catch((err) => console.log("Failed to receive foreground message: ", err));
+  }, []);
+
   return (
     <Router>
+      {notification && (
+        <div className="alert alert-info fixed-top text-center mb-0" style={{ zIndex: 1050 }}>
+          <strong>{notification.title}</strong> - {notification.body}
+        </div>
+      )}
+
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
