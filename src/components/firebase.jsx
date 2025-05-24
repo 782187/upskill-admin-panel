@@ -5,7 +5,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCHxauU6UEJJLOlbljyI9tEPJEWOOAu8aI",
   authDomain: "pushnotifications-b2b51.firebaseapp.com",
   projectId: "pushnotifications-b2b51",
-  storageBucket: "pushnotifications-b2b51.appspot.app",
+  storageBucket: "pushnotifications-b2b51.firebasestorage.app",
   messagingSenderId: "733666808831",
   appId: "1:733666808831:web:654910659bfdb73175cdca",
   measurementId: "G-YW4XVFYMNX"
@@ -24,12 +24,12 @@ export const requestNotificationPermission = async (adminId) => {
 
     const token = await getToken(messaging, {
       vapidKey: "BKu03YLCuyg-gdINMoclEBs4l_ERpDwT_22DwaaZHQc3pfncAV5H6s_utKtzje5o0Kd1qYBYq6APPZHy-prOiGk",
+      serviceWorkerRegistration: await navigator.serviceWorker.ready 
     });
 
     if (token) {
       console.log("FCM token:", token);
 
-      // Send token and adminId to backend
       const response = await fetch("https://upskill-server.onrender.com/register-fcm-token", {
         method: "POST",
         headers: {
@@ -39,20 +39,19 @@ export const requestNotificationPermission = async (adminId) => {
           token: token,
           adminId: adminId
         }),
-        credentials: "include" 
+        credentials: "include"
       });
 
       const result = await response.json();
       console.log("Token registration response:", result);
     } else {
-      console.warn("No registration token available. Permission was not granted.");
+      console.warn("No registration token available.");
     }
   } catch (err) {
-    console.error("An error occurred while requesting permission or sending token to backend:", err);
+    console.error("Error requesting permission or sending token:", err);
   }
 };
 
-// Listen for messages when the app is open
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {

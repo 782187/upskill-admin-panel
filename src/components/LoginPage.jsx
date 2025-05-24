@@ -7,25 +7,28 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === 'upskill' && password === 'upskill@21') {
-      localStorage.setItem("adminId", username);
+    setError("");
+    setLoading(true);
 
+    if (username === "upskill" && password === "upskill@21") {
       try {
         await requestNotificationPermission(username);
       } catch (err) {
         console.error("FCM token registration failed:", err);
       }
 
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
-      setError('Invalid username or password');
+      setError("Invalid username or password");
     }
-  };
 
+    setLoading(false);
+  };
 
   return (
     <div className="vh-100 d-flex justify-content-center align-items-center bg-light">
@@ -44,6 +47,8 @@ const LoginPage = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter username"
+              required
+              autoFocus
             />
           </div>
           <div className="mb-3">
@@ -54,9 +59,12 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter password"
+              required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">Login</button>
+          <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
         <p className="text-muted text-center mt-3">Hint: upskill / upskill@21</p>
       </div>
