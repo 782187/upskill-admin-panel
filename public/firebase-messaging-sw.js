@@ -15,16 +15,12 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message:', payload);
-
-  const title = payload.data?.title || "New Notification";
-  const body = payload.data?.body || "You have a new message.";
-  const icon = payload.data?.icon || "/logo.png";
-
+  const title = payload.notification?.title || "New Notification";
+  const body = payload.notification?.body || "You have a new message.";
   const notificationOptions = {
     body,
-    icon,
+    icon: "/logo.png",
   };
-
   self.registration.showNotification(title, notificationOptions);
 });
 
