@@ -153,7 +153,7 @@ function FeedbackReview() {
               <div className="card h-100 shadow">
                 <div className="card-body text-center">
                   <img
-                    src={review.image || "https://via.placeholder.com/60"}
+                    src={review.image}
                     alt={review.name}
                     className="rounded-circle mb-3 border border-primary shadow"
                     style={{ width: 70, height: 70, objectFit: "cover" }}
