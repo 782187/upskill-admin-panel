@@ -53,9 +53,9 @@ function ManageCourse() {
       <form onSubmit={handleSubmit} className="card p-4">
         <input type="text" placeholder="Title" className="form-control mb-2" value={title} onChange={(e) => setTitle(e.target.value)} required />
         <input type="text" placeholder="Duration" className="form-control mb-2" value={duration} onChange={(e) => setDuration(e.target.value)} required />
-        <input type="text" placeholder="Mode" className="form-control mb-2" value={mode} onChange={(e) => setMode(e.target.value)} required />
+        <textarea type="text" placeholder="Mode" className="form-control mb-2" value={mode} onChange={(e) => setMode(e.target.value)} required />
         <textarea placeholder="Description" className="form-control mb-2" value={description} onChange={(e) => setDescription(e.target.value)} required />
-        <input type="text" placeholder="Topics" className="form-control mb-2" value={topics} onChange={(e) => setTopics(e.target.value)} required />
+        <textarea type="text" placeholder="Topics" className="form-control mb-2" value={topics} onChange={(e) => setTopics(e.target.value)} required />
         <input type="text" placeholder="Technology" className="form-control mb-2" value={technology} onChange={(e) => setTechnology(e.target.value)} required />
 
         <label>Course Image:</label>
