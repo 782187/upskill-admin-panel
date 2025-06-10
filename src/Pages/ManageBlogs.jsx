@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     shortDesc: "",
     content: "",
     image: null,
   });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("https://upskill-server.onrender.com/getblog");
+        setBlogs(res.data);
+      } catch (err) {
+        console.error("Cannot fetch blogs", err);
+      }
+    })();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -35,13 +47,14 @@ function ManageBlogs() {
 
     try {
       const response = await axios.post("https://upskill-server.onrender.com/addblog", data);
-      const savedBlog = response.data;
-      setBlogs((prev) => [savedBlog, ...prev]); 
+      setSuccessMessage("Data inserted successfully!");
+
+      setFormData({ title: "", shortDesc: "", content: "", image: null });
+
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
       console.error("Error posting blog:", error);
     }
-
-    setFormData({ title: "", shortDesc: "", content: "", image: null });
   };
 
   const handleDelete = async (id) => {
@@ -57,7 +70,7 @@ function ManageBlogs() {
     <div className="container mt-4">
       <h2 className="mb-4 text-primary">Post a New Blog</h2>
 
-      <form onSubmit={handleSubmit} className="mb-5">
+      <form onSubmit={handleSubmit} className="mb-3">
         <div className="mb-3">
           <input
             type="text"
@@ -104,6 +117,12 @@ function ManageBlogs() {
           Post Blog
         </button>
       </form>
+
+      {successMessage && (
+        <div className="alert alert-success text-center" role="alert">
+          {successMessage}
+        </div>
+      )}
 
       <h3 className="mb-3">All Blogs</h3>
       {blogs.length === 0 ? (
