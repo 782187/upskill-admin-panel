@@ -57,12 +57,21 @@ function ManageBlogs() {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.post("https://upskill-server.onrender.com/deleteblog", { id });
-      setBlogs((prev) => prev.filter((blog) => blog.id !== id));
-    } catch (error) {
-      console.error("Error deleting blog:", error);
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this blog?")) {
+      axios({
+        method: "post",
+        url: "https://upskill-server.onrender.com/deleteblog",
+        params: { id: id },
+      })
+        .then((res) => {
+          alert("Blog deleted successfully.");
+          fetchCourses();
+        })
+        .catch((err) => {
+          alert("Error deleting Blog.");
+          console.error(err);
+        });
     }
   };
 
