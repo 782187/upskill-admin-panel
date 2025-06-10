@@ -13,15 +13,17 @@ function ManageBlogs() {
   });
 
   useEffect(() => {
-    (async () => {
+    fetchBlog();
+  }, []);
+
+  const fetchBlog = async () => {
       try {
         const res = await axios.get("https://upskill-server.onrender.com/getblog");
         setBlogs(res.data);
       } catch (err) {
         console.error("Cannot fetch blogs", err);
       }
-    })();
-  }, []);
+    };
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -66,7 +68,7 @@ function ManageBlogs() {
       })
         .then((res) => {
           alert("Blog deleted successfully.");
-          fetchCourses();
+          fetchBlog();
         })
         .catch((err) => {
           alert("Error deleting Blog.");
