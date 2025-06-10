@@ -116,13 +116,6 @@ function ManageBlogs() {
                 <div className="card-body">
                   <h5 className="card-title">{blog.title}</h5>
                   <h6 className="text-muted">{blog.shortDesc}</h6>
-                  {blog.image && (
-                    <img
-                      src={blog.image}
-                      alt="blog"
-                      className="img-fluid rounded mb-3"
-                    />
-                  )}
                   <p className="card-text">{blog.content}</p>
                   <button
                     className="btn btn-danger btn-sm"
