@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
+    shortDesc: "",
     content: "",
     image: null,
   });
@@ -18,19 +20,37 @@ function ManageBlogs() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title || !formData.content) return;
 
-    const newBlog = {
-      title: formData.title,
-      content: formData.content,
-      image: formData.image ? URL.createObjectURL(formData.image) : null,
-    };
+    if (!formData.title || !formData.shortDesc || !formData.content) return;
 
-    setBlogs((prev) => [newBlog, ...prev]);
+    const data = new FormData();
+    data.append("title", formData.title);
+    data.append("shortDesc", formData.shortDesc);
+    data.append("content", formData.content);
+    if (formData.image) {
+      data.append("image", formData.image);
+    }
 
-    setFormData({ title: "", content: "", image: null });
+    try {
+      const response = await axios.post("https://upskill-server.onrender.com/addblog", data);
+      const savedBlog = response.data;
+      setBlogs((prev) => [savedBlog, ...prev]); 
+    } catch (error) {
+      console.error("Error posting blog:", error);
+    }
+
+    setFormData({ title: "", shortDesc: "", content: "", image: null });
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.post("https://upskill-server.onrender.com/deleteblog", { id });
+      setBlogs((prev) => prev.filter((blog) => blog.id !== id));
+    } catch (error) {
+      console.error("Error deleting blog:", error);
+    }
   };
 
   return (
@@ -45,6 +65,17 @@ function ManageBlogs() {
             className="form-control"
             placeholder="Blog Title"
             value={formData.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="text"
+            name="shortDesc"
+            className="form-control"
+            placeholder="Short Description"
+            value={formData.shortDesc}
             onChange={handleChange}
             required
           />
@@ -84,14 +115,21 @@ function ManageBlogs() {
               <div className="card h-100">
                 <div className="card-body">
                   <h5 className="card-title">{blog.title}</h5>
+                  <h6 className="text-muted">{blog.shortDesc}</h6>
                   {blog.image && (
                     <img
                       src={blog.image}
-                      alt="blog visual"
+                      alt="blog"
                       className="img-fluid rounded mb-3"
                     />
                   )}
                   <p className="card-text">{blog.content}</p>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(blog.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
