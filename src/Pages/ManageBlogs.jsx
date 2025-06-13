@@ -62,7 +62,7 @@ function ManageBlogs() {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       axios({
         method: "post",
-        url: "https://upskill-server.onrender.com/delete-course",
+        url: "https://upskill-server.onrender.com/deleteblog",
         params: { id: id },
       })
       .then(() => {
