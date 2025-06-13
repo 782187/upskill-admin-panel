@@ -61,7 +61,9 @@ function ManageBlogs() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
-      axios.post("https://upskill-server.onrender.com/deleteblog", null, {
+      axios({
+        method: "post",
+        url: "https://upskill-server.onrender.com/delete-course",
         params: { id: id },
       })
         .then(() => {
@@ -145,7 +147,6 @@ function ManageBlogs() {
                 <div className="card-body">
                   <h5 className="card-title">{blog.title}</h5>
                   <h6 className="text-muted">{blog.short_desc}</h6>
-                  <p className="card-text">{blog.content}</p>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => handleDelete(blog.id)}
