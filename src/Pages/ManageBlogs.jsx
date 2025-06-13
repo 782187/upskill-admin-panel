@@ -1,4 +1,3 @@
-// React Component: ManageBlogs.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -66,14 +65,14 @@ function ManageBlogs() {
         url: "https://upskill-server.onrender.com/delete-course",
         params: { id: id },
       })
-        .then(() => {
-          alert("Blog deleted successfully.");
-          fetchBlog();
-        })
-        .catch((err) => {
-          alert("Error deleting Blog.");
-          console.error(err);
-        });
+      .then(() => {
+        alert("Blog deleted successfully.: " + id);
+        fetchBlog();
+      })
+      .catch((err) => {
+        alert("Error deleting Blog.");
+        console.error(err);
+      });
     }
   };
 
