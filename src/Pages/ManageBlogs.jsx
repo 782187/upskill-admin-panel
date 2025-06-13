@@ -1,3 +1,4 @@
+// React Component: ManageBlogs.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,13 +18,13 @@ function ManageBlogs() {
   }, []);
 
   const fetchBlog = async () => {
-      try {
-        const res = await axios.get("https://upskill-server.onrender.com/getblog");
-        setBlogs(res.data);
-      } catch (err) {
-        console.error("Cannot fetch blogs", err);
-      }
-    };
+    try {
+      const res = await axios.get("https://upskill-server.onrender.com/getblog");
+      setBlogs(res.data);
+    } catch (err) {
+      console.error("Cannot fetch blogs", err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -48,11 +49,10 @@ function ManageBlogs() {
     }
 
     try {
-      const response = await axios.post("https://upskill-server.onrender.com/addblog", data);
-      setSuccessMessage("Data inserted successfully!");
-
+      await axios.post("https://upskill-server.onrender.com/addblog", data);
+      setSuccessMessage("Blog posted successfully!");
       setFormData({ title: "", shortDesc: "", content: "", image: null });
-
+      fetchBlog();
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
       console.error("Error posting blog:", error);
@@ -61,12 +61,10 @@ function ManageBlogs() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this blog?")) {
-      axios({
-        method: "post",
-        url: "https://upskill-server.onrender.com/deleteblog",
+      axios.post("https://upskill-server.onrender.com/deleteblog", null, {
         params: { id: id },
       })
-        .then((res) => {
+        .then(() => {
           alert("Blog deleted successfully.");
           fetchBlog();
         })
@@ -143,9 +141,10 @@ function ManageBlogs() {
           {blogs.map((blog, index) => (
             <div key={index} className="col-md-6 mb-4">
               <div className="card h-100">
+                <img src={blog.image} alt="Blog" className="card-img-top" />
                 <div className="card-body">
                   <h5 className="card-title">{blog.title}</h5>
-                  <h6 className="text-muted">{blog.shortDesc}</h6>
+                  <h6 className="text-muted">{blog.short_desc}</h6>
                   <p className="card-text">{blog.content}</p>
                   <button
                     className="btn btn-danger btn-sm"

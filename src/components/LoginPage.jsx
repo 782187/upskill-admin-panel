@@ -66,7 +66,6 @@ const LoginPage = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        <p className="text-muted text-center mt-3">Hint: upskill / upskill@21</p>
       </div>
     </div>
   );
