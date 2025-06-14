@@ -142,7 +142,6 @@ function ManageBlogs() {
           {blogs.map((blog, index) => (
             <div key={index} className="col-md-6 mb-4">
               <div className="card h-100">
-                <img src={blog.image} alt="Blog" className="card-img-top" />
                 <div className="card-body">
                   <h5 className="card-title">{blog.title}</h5>
                   <h6 className="text-muted">{blog.short_desc}</h6>

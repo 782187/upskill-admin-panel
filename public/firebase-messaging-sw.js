@@ -27,6 +27,6 @@ messaging.onBackgroundMessage(function(payload) {
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow('https://upskill-admin-panel.onrender.com')
+    clients.openWindow('https://upskill-admin-panel.onrender.com/enquiries')
   );
 });
