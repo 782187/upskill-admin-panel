@@ -16,13 +16,15 @@ const LoginPage = () => {
     setLoading(true);
 
     if (username === "upskill" && password === "upskill@21") {
+      localStorage.setItem("isLoggedIn", "true"); 
+
       try {
         await requestNotificationPermission(username);
       } catch (err) {
         console.error("FCM token registration failed:", err);
       }
-      navigate("/dashboard");
 
+      navigate("/dashboard"); 
     } else {
       setError("Invalid username or password");
     }

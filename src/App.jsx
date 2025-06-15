@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-
 import Dashboard from "./Pages/Dashboard";
 import ManageCourses from "./Pages/ManageCourse";
 import ManageBlogs from "./Pages/ManageBlogs";
@@ -14,6 +13,7 @@ import ManagePlacement from "./Pages/ManagePlacment";
 import CourseCard from "./components/CourseCard";
 import LoginPage from "./components/LoginPage";
 import WelcomePage from "./components/WelcomePage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import { onMessageListener } from "./components/firebase";
 
@@ -53,15 +53,14 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
-
-        <Route path="/dashboard" element={<AdminLayout><Dashboard /></AdminLayout>} />
-        <Route path="/courses" element={<AdminLayout><ManageCourses /></AdminLayout>} />
-        <Route path="/blogs" element={<AdminLayout><ManageBlogs /></AdminLayout>} />
-        <Route path="/events" element={<AdminLayout><ManageEvents /></AdminLayout>} />
-        <Route path="/enquiries" element={<AdminLayout><ManageEnquiry /></AdminLayout>} />
-        <Route path="/coursecard" element={<AdminLayout><CourseCard /></AdminLayout>} />
-        <Route path="/feedback" element={<AdminLayout><FeedbackReview /></AdminLayout>} />
-        <Route path="/placement" element={<AdminLayout><ManagePlacement /></AdminLayout>} />
+        <Route path="/dashboard" element={<ProtectedRoute><AdminLayout><Dashboard /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/courses" element={<ProtectedRoute><AdminLayout><ManageCourses /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/blogs" element={<ProtectedRoute><AdminLayout><ManageBlogs /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/events" element={<ProtectedRoute><AdminLayout><ManageEvents /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/enquiries" element={<ProtectedRoute><AdminLayout><ManageEnquiry /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/coursecard" element={<ProtectedRoute><AdminLayout><CourseCard /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/feedback" element={<ProtectedRoute><AdminLayout><FeedbackReview /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/placement" element={<ProtectedRoute><AdminLayout><ManagePlacement /></AdminLayout></ProtectedRoute>}/>
       </Routes>
     </Router>
   );
