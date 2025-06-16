@@ -127,7 +127,7 @@ function ManagePlacement() {
                     <div className="card-body py-2">
                       <h5 className="card-title mb-1">{s.name}</h5>
                       <p className="card-text mb-2">
-                        <strong>Company:</strong> {s.company_name}
+                        <strong>Company:</strong> {s.companyName}
                       </p>
                       <img
                         src={`data:image/jpeg;base64,${s.companyLogo}`}
