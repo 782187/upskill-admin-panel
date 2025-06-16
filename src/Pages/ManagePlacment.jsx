@@ -82,19 +82,19 @@ function ManagePlacement() {
 
       <form onSubmit={handleSubmit} className="row g-3 mb-4">
         <div className="col-md-6 col-lg-4">
-          <input type="text" name="name" className="form-control"	placeholder="Student Name" value={formData.name} onChange={handleChange} required />
+          <input type="text" name="name" className="form-control" placeholder="Student Name" value={formData.name} onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
-          <input type="text"	name="companyName" className="form-control"	placeholder="Company Name" value={formData.companyName}	onChange={handleChange}	required />
+          <input type="text" name="companyName" className="form-control" placeholder="Company Name" value={formData.companyName} onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
-          <input type="file" name="image"	className="form-control"	accept="image/*" onChange={handleChange}	required />
+          <input type="file" name="image" className="form-control" accept="image/*" onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
-          <input type="file" name="companyLogo"	className="form-control" accept="image/*" onChange={handleChange}	required />
+          <input type="file" name="companyLogo" className="form-control" accept="image/*" onChange={handleChange} required />
         </div>
         <div className="col-12">
-          <button type="submit"		className="btn btn-success w-100">
+          <button type="submit" className="btn btn-success w-100">
             Add Placement
           </button>
         </div>
@@ -106,43 +106,51 @@ function ManagePlacement() {
         </div>
       )}
 
-      <div className="table-responsive">
-        <table className="table table-bordered table-striped text-center align-middle">
-          <thead className="table-light">
-            <tr>
-              <th>Student Name</th>
-              <th>Company Name</th>
-              <th>Student Image</th>
-              <th>Company Logo</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {placements.length > 0 ? (
-              placements.map((s) => (
-                <tr key={s.id}>
-                  <td>{s.name}</td>
-                  <td>{s.company_name}</td>
-                  <td>
-                    <img src={`data:image/jpeg;base64,${s.image}`} alt="Student" />
-                  </td>
-                  <td>
-                    <img src={`data:image/jpeg;base64,${s.companyLogo}`} alt="Company Logo" />
-                  </td>
-                  <td>
-                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(s.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">No placement records available.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className="row">
+        {placements.length > 0 ? (
+          placements.map((s) => (
+            <div key={s.id} className="col-md-6 col-lg-4 mb-4">
+              <div className="card h-100 shadow-sm border-0">
+                <div className="row g-0 align-items-center">
+                  <div className="col-4 text-center p-2">
+                    <img
+                      src={`data:image/jpeg;base64,${s.image}`}
+                      alt="Student"
+                      className="img-fluid rounded-circle"
+                      style={{ height: "80px", width: "80px", objectFit: "cover" }}
+                    />
+                  </div>
+                  <div className="col-8">
+                    <div className="card-body py-2">
+                      <h5 className="card-title mb-1">{s.name}</h5>
+                      <p className="card-text mb-2">
+                        <strong>Company:</strong> {s.company_name}
+                      </p>
+                      <img
+                        src={`data:image/jpeg;base64,${s.companyLogo}`}
+                        alt="Company Logo"
+                        className="img-fluid"
+                        style={{ maxHeight: "40px", objectFit: "contain" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="card-footer text-end bg-white border-0">
+                  <button
+                    className="btn btn-sm btn-outline-danger"
+                    onClick={() => handleDelete(s.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="col-12">
+            <p className="text-center">No placement records available.</p>
+          </div>
+        )}
       </div>
     </div>
   );
