@@ -82,23 +82,26 @@ function ManagePlacement() {
 
       <form onSubmit={handleSubmit} className="row g-3 mb-4">
         <div className="col-md-6 col-lg-4">
-          <input type="text" name="name" className="form-control" placeholder="Student Name" value={formData.name} onChange={handleChange} required />
+          <label htmlFor="studentName" className="form-label">Student Name</label>
+          <input type="text" id="studentName" name="name" className="form-control" placeholder="Student Name" value={formData.name} onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
-          <input type="text" name="companyName" className="form-control" placeholder="Company Name" value={formData.companyName} onChange={handleChange} required />
+          <label htmlFor="companyName" className="form-label">Company Name</label>
+          <input type="text" id="companyName" name="companyName" className="form-control" placeholder="Company Name" value={formData.companyName} onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
-          <input type="file" name="image" className="form-control" accept="image/*" onChange={handleChange} required />
+          <label htmlFor="studentImage" className="form-label">Student Image</label>
+          <input type="file" id="studentImage" name="image" className="form-control" accept="image/*" onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
-          <input type="file" name="companyLogo" className="form-control" accept="image/*" onChange={handleChange} required />
+          <label htmlFor="companyLogo" className="form-label">Company Logo</label>
+          <input type="file" id="companyLogo" name="companyLogo" className="form-control" accept="image/*" onChange={handleChange} required />
         </div>
         <div className="col-12">
-          <button type="submit" className="btn btn-success w-100">
-            Add Placement
-          </button>
+          <button type="submit" className="btn btn-success w-100">Add Placement</button>
         </div>
       </form>
+
 
       {successMessage && (
         <div className="alert alert-success text-center" role="alert">
