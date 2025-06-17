@@ -8,6 +8,7 @@ function ManagePlacement() {
   const [formData, setFormData] = useState({
     name: "",
     companyName: "",
+    position: "",
     image: null,
     companyLogo: null,
   });
@@ -40,6 +41,7 @@ function ManagePlacement() {
     const data = new FormData();
     data.append("name", formData.name);
     data.append("companyName", formData.companyName);
+    data.append("position",formData.position)
     if (formData.image) data.append("image", formData.image);
     if (formData.companyLogo) data.append("companyLogo", formData.companyLogo);
 
@@ -49,6 +51,7 @@ function ManagePlacement() {
       setFormData({
         name: "",
         companyName: "",
+        position: "",
         image: null,
         companyLogo: null,
       });
@@ -88,6 +91,10 @@ function ManagePlacement() {
         <div className="col-md-6 col-lg-4">
           <label htmlFor="companyName" className="form-label">Company Name</label>
           <input type="text" id="companyName" name="companyName" className="form-control" placeholder="Company Name" value={formData.companyName} onChange={handleChange} required />
+        </div>
+        <div className="col-md-6 col-lg-4">
+          <label htmlFor="position" className="form-label">Position</label>
+          <input type="text" id="position" name="position" className="form-control" placeholder="Enter Job Position" value={formData.position} onChange={handleChange} required />
         </div>
         <div className="col-md-6 col-lg-4">
           <label htmlFor="studentImage" className="form-label">Student Image</label>
