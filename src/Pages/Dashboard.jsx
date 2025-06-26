@@ -79,12 +79,12 @@ function Dashboard() {
         <p className="badge bg-success p-2 text-white">Welcome back! Here's an overview of your data</p>
       </div>
 
-      <div className="row g-3 mb-4">
-        <StatCard icon={<FaChalkboardTeacher />} label="Courses" value={4 + course} color="#6366f1" />
-        <StatCard icon={<FaUserGraduate />} label="Enquiries" value={students} color="#f59e0b" />
-        <StatCard icon={<FaEye />} label="Visitors" value={visitors} color="#14b8a6" />
-        <StatCard icon={<FaRegNewspaper />} label="Blogs" value={blogs} color="#64748b" />
-        <StatCard icon={<FaCalendarAlt />} label="Events" value={8} color="#ef4444" />
+      <div className="row g-3 mb-4 justify-content-center">
+        <StatCard icon={<FaChalkboardTeacher />} label="Courses" value={4 + course} color="#6366f1"/>
+        <StatCard icon={<FaUserGraduate />} label="Enquiries" value={students} color="#f59e0b"/>
+        <StatCard icon={<FaEye />} label="Visitors" value={visitors} color="#14b8a6"/>
+        <StatCard icon={<FaRegNewspaper />} label="Blogs" value={blogs} color="#64748b"/>
+        <StatCard icon={<FaCalendarAlt />} label="Events" value={8} color="#ef4444"/>
       </div>
 
       <div className="row g-4">
@@ -133,7 +133,7 @@ function Dashboard() {
 function StatCard({ icon, label, value, color }) {
   return (
     <div className="col-6 col-md-4 col-lg-2">
-      <div className="card stat-card border-0 shadow-sm text-white" style={{ backgroundColor: color }}>
+      <div className="card stat-card border-0 shadow-sm text-white px-3" style={{ backgroundColor: color }}>
         <div className="card-body text-center">
           <div className="fs-3 mb-2">{icon}</div>
           <h6 className="fw-semibold">{label}</h6>
