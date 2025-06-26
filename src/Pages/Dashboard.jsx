@@ -24,11 +24,13 @@ function Dashboard() {
   const [students, setStudents] = useState(0);
   const [course, setCourse] = useState(0);
   const [visitors, setVisitors] = useState(0);
+  const [blogs, setBlogs] = useState(0);
 
   useEffect(() => {
     fetchEnquiries();
     fetchCourse();
     fetchVisitors();
+    fetchBlogs();
   }, []);
 
   const fetchEnquiries = () => {
@@ -49,11 +51,17 @@ function Dashboard() {
       .catch(() => alert("Failed to fetch visitors"));
   };
 
+  const fetchBlogs = () => {
+    axios.get("https://upskill-server.onrender.com/getblog")
+      .then((res) => setBlogs(res.data.length))
+      .catch(() => alert("Failed to fetch blogs"));
+  };
+
   const barData = [
     { name: "Courses", value: 4 + course },
     { name: "Enquiries", value: students },
     { name: "Visitors", value: visitors },
-    { name: "Blogs", value: 23 },
+    { name: "Blogs", value: blogs },
     { name: "Applicants", value: 50 },
     { name: "Events", value: 8 },
   ];
@@ -61,7 +69,7 @@ function Dashboard() {
   const pieData = [
     { name: "Courses", value: 4 + course },
     { name: "Enquiries", value: students },
-    { name: "Blogs", value: 23 },
+    { name: "Blogs", value: blogs },
   ];
 
   const COLORS = ["#6366f1", "#10b981", "#14b8a6", "#f59e0b", "#ef4444", "#64748b"];
@@ -76,7 +84,7 @@ function Dashboard() {
         <StatCard icon={<FaChalkboardTeacher />} label="Courses" value={4 + course} color="#6366f1" />
         <StatCard icon={<FaUserGraduate />} label="Enquiries" value={students} color="#f59e0b" />
         <StatCard icon={<FaEye />} label="Visitors" value={visitors} color="#14b8a6" />
-        <StatCard icon={<FaRegNewspaper />} label="Blogs" value={23} color="#64748b" />
+        <StatCard icon={<FaRegNewspaper />} label="Blogs" value={blogs} color="#64748b" />
         <StatCard icon={<FaUsers />} label="Applicants" value={50} color="#10b981" />
         <StatCard icon={<FaCalendarAlt />} label="Events" value={8} color="#ef4444" />
       </div>
