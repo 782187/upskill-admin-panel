@@ -62,7 +62,6 @@ function Dashboard() {
     { name: "Enquiries", value: students },
     { name: "Visitors", value: visitors },
     { name: "Blogs", value: blogs },
-    { name: "Applicants", value: 50 },
     { name: "Events", value: 8 },
   ];
 
@@ -85,7 +84,6 @@ function Dashboard() {
         <StatCard icon={<FaUserGraduate />} label="Enquiries" value={students} color="#f59e0b" />
         <StatCard icon={<FaEye />} label="Visitors" value={visitors} color="#14b8a6" />
         <StatCard icon={<FaRegNewspaper />} label="Blogs" value={blogs} color="#64748b" />
-        <StatCard icon={<FaUsers />} label="Applicants" value={50} color="#10b981" />
         <StatCard icon={<FaCalendarAlt />} label="Events" value={8} color="#ef4444" />
       </div>
 
