@@ -15,7 +15,7 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
 
-    if (username === "upskill" && password === "upskill@21") {
+    if (username === "avis" && password === "avis11@") {
       localStorage.setItem("isLoggedIn", "true"); 
 
       try {
