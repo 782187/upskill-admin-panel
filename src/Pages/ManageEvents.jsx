@@ -4,6 +4,8 @@ function ManageEvents() {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({ title: "", photo: null });
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     fetch("https://upskill-server.onrender.com/getEvents")
@@ -42,6 +44,7 @@ function ManageEvents() {
     payload.append("title", formData.title);
     payload.append("photo", formData.photo);
 
+    setLoading(true);
     try {
       const res = await fetch("https://upskill-server.onrender.com/addEvent", {
         method: "POST",
@@ -69,9 +72,11 @@ function ManageEvents() {
       console.error("Submit error:", err);
       setMessage("Something went wrong");
     }
+    setLoading(false);
   };
 
   const handleDelete = async (id) => {
+    setDeletingId(id);
     try {
       const res = await fetch(`https://upskill-server.onrender.com/deleteEvent?id=${id}`, {
         method: "DELETE",
@@ -85,6 +90,7 @@ function ManageEvents() {
     } catch (err) {
       console.error("Delete error:", err);
     }
+    setDeletingId(null);
   };
 
   return (
@@ -117,8 +123,8 @@ function ManageEvents() {
         </div>
 
         <div className="col-12">
-          <button type="submit" className="btn btn-primary w-100">
-            Add Event
+          <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+            {loading ? "Submitting..." : "Add Event"}
           </button>
         </div>
       </form>
@@ -143,8 +149,9 @@ function ManageEvents() {
                 <button
                   className="btn btn-danger btn-sm"
                   onClick={() => handleDelete(event.id)}
+                  disabled={deletingId === event.id}
                 >
-                  Delete
+                  {deletingId === event.id ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </div>
