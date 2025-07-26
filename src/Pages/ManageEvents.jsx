@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function ManageEvents() {
   const [events, setEvents] = useState([]);
-  const [formData, setFormData] = useState({
-    title: "",
-    photo: null,
-    video: "",
-  });
+  const [formData, setFormData] = useState({ title: "", photo: null });
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("https://upskill-backend.onrender.com/getEvents")
+      .then((res) => res.json())
+      .then((data) => {
+        const formatted = data.map((event) => ({
+          ...event,
+          photoUrl: event.photo
+            ? `data:image/jpeg;base64,${event.photo}`
+            : null,
+        }));
+        setEvents(formatted);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch events:", err);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -17,18 +31,61 @@ function ManageEvents() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title || (!formData.photo && !formData.video)) return;
+    if (!formData.title || !formData.photo) {
+      alert("Please fill in all fields");
+      return;
+    }
 
-    const newEvent = {
-      title: formData.title,
-      photo: formData.photo ? URL.createObjectURL(formData.photo) : null,
-      video: formData.video,
-    };
+    const payload = new FormData();
+    payload.append("title", formData.title);
+    payload.append("photo", formData.photo);
 
-    setEvents((prev) => [...prev, newEvent]);
-    setFormData({ title: "", photo: null, video: "" });
+    try {
+      const res = await fetch("https://upskill-backend.onrender.com/addEvent", {
+        method: "POST",
+        body: payload,
+      });
+
+      if (res.ok) {
+        setFormData({ title: "", photo: null });
+        setMessage("Event added successfully!");
+
+        // Refresh list
+        const updated = await fetch("https://upskill-backend.onrender.com/getEvents").then((res) =>
+          res.json()
+        );
+        const formatted = updated.map((event) => ({
+          ...event,
+          photoUrl: event.photo
+            ? `data:image/jpeg;base64,${event.photo}`
+            : null,
+        }));
+        setEvents(formatted);
+      } else {
+        setMessage("Failed to add event");
+      }
+    } catch (err) {
+      console.error("Submit error:", err);
+      setMessage("Something went wrong");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`https://upskill-backend.onrender.com/deleteEvent?id=${id}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        setEvents((prev) => prev.filter((event) => event.id !== id));
+      } else {
+        console.error("Failed to delete");
+      }
+    } catch (err) {
+      console.error("Delete error:", err);
+    }
   };
 
   return (
@@ -56,17 +113,7 @@ function ManageEvents() {
             className="form-control"
             accept="image/*"
             onChange={handleChange}
-          />
-        </div>
-
-        <div className="col-md-6">
-          <input
-            type="text"
-            name="video"
-            className="form-control mt-4 mt-md-0"
-            placeholder="YouTube Link or Video URL"
-            value={formData.video}
-            onChange={handleChange}
+            required
           />
         </div>
 
@@ -77,33 +124,29 @@ function ManageEvents() {
         </div>
       </form>
 
+      {message && (
+        <div className="alert alert-info text-center">{message}</div>
+      )}
+
       <div className="row">
-        {events.map((event, index) => (
-          <div key={index} className="col-md-6 mb-4">
+        {events.map((event) => (
+          <div key={event.id} className="col-md-6 mb-4">
             <div className="card shadow-sm">
               <div className="card-body">
                 <h5 className="card-title fw-semibold">{event.title}</h5>
-                {event.photo && (
+                {event.photoUrl && (
                   <img
-                    src={event.photo}
+                    src={event.photoUrl}
                     alt="Event"
                     className="img-fluid rounded mb-3"
                   />
                 )}
-                {event.video && event.video.includes("youtube.com") ? (
-                  <div className="ratio ratio-16x9">
-                    <iframe
-                      src={event.video.replace("watch?v=", "embed/")}
-                      title="YouTube video"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                ) : event.video ? (
-                  <video className="w-100" controls>
-                    <source src={event.video} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                ) : null}
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(event.id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
