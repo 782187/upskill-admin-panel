@@ -6,7 +6,7 @@ function ManageEvents() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("https://upskill-backend.onrender.com/getEvents")
+    fetch("https://upskill-server.onrender.com/getEvents")
       .then((res) => res.json())
       .then((data) => {
         const formatted = data.map((event) => ({
@@ -43,7 +43,7 @@ function ManageEvents() {
     payload.append("photo", formData.photo);
 
     try {
-      const res = await fetch("https://upskill-backend.onrender.com/addEvent", {
+      const res = await fetch("https://upskill-server.onrender.com/addEvent", {
         method: "POST",
         body: payload,
       });
@@ -52,8 +52,7 @@ function ManageEvents() {
         setFormData({ title: "", photo: null });
         setMessage("Event added successfully!");
 
-        // Refresh list
-        const updated = await fetch("https://upskill-backend.onrender.com/getEvents").then((res) =>
+        const updated = await fetch("https://upskill-server.onrender.com/getEvents").then((res) =>
           res.json()
         );
         const formatted = updated.map((event) => ({
@@ -74,7 +73,7 @@ function ManageEvents() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`https://upskill-backend.onrender.com/deleteEvent?id=${id}`, {
+      const res = await fetch(`https://upskill-server.onrender.com/deleteEvent?id=${id}`, {
         method: "DELETE",
       });
 
