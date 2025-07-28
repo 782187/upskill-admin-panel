@@ -20,6 +20,7 @@ function Sidebar() {
   const navItems = [
     { to: "/dashboard", label: "Dashboard", icon: <Home className="me-2" /> },
     { to: "/enquiries", label: "Enquiries", icon: <Users className="me-2" /> },
+    { to: "/demolecture", label: "Demo Booking", icon: <Users className="me-2" /> },
     { to: "/courses", label: "Courses", icon: <Book className="me-2" /> },
     { to: "/feedback", label: "Feedback", icon: <MessageCircle className="me-2" /> },
     { to: "/blogs", label: "Blogs", icon: <FileText className="me-2" /> },

@@ -10,6 +10,7 @@ import ManageCourses from "./Pages/ManageCourse";
 import ManageBlogs from "./Pages/ManageBlogs";
 import ManageEvents from "./Pages/ManageEvents";
 import ManageEnquiry from "./Pages/ManageEnquiry";
+import ManageDemoBooking from "./Pages/ManageDemoBooking";
 import FeedbackReview from "./Pages/FeedbackReview1";
 import ManagePlacement from "./Pages/ManagePlacment";
 import CourseCard from "./components/CourseCard";
@@ -55,14 +56,15 @@ function App() {
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<ProtectedRoute><AdminLayout><Dashboard /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/courses" element={<ProtectedRoute><AdminLayout><ManageCourses /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/blogs" element={<ProtectedRoute><AdminLayout><ManageBlogs /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/events" element={<ProtectedRoute><AdminLayout><ManageEvents /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/enquiries" element={<ProtectedRoute><AdminLayout><ManageEnquiry /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/coursecard" element={<ProtectedRoute><AdminLayout><CourseCard /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/feedback" element={<ProtectedRoute><AdminLayout><FeedbackReview /></AdminLayout></ProtectedRoute>}/>
-        <Route path="/placement" element={<ProtectedRoute><AdminLayout><ManagePlacement /></AdminLayout></ProtectedRoute>}/>
+        <Route path="/dashboard" element={<ProtectedRoute><AdminLayout><Dashboard /></AdminLayout></ProtectedRoute>} />
+        <Route path="/courses" element={<ProtectedRoute><AdminLayout><ManageCourses /></AdminLayout></ProtectedRoute>} />
+        <Route path="/blogs" element={<ProtectedRoute><AdminLayout><ManageBlogs /></AdminLayout></ProtectedRoute>} />
+        <Route path="/events" element={<ProtectedRoute><AdminLayout><ManageEvents /></AdminLayout></ProtectedRoute>} />
+        <Route path="/enquiries" element={<ProtectedRoute><AdminLayout><ManageEnquiry /></AdminLayout></ProtectedRoute>} />
+        <Route path="/demolecture" element={<ProtectedRoute><AdminLayout><ManageDemoBooking/></AdminLayout></ProtectedRoute>} />
+        <Route path="/coursecard" element={<ProtectedRoute><AdminLayout><CourseCard /></AdminLayout></ProtectedRoute>} />
+        <Route path="/feedback" element={<ProtectedRoute><AdminLayout><FeedbackReview /></AdminLayout></ProtectedRoute>} />
+        <Route path="/placement" element={<ProtectedRoute><AdminLayout><ManagePlacement /></AdminLayout></ProtectedRoute>} />
       </Routes>
     </Router>
   );
