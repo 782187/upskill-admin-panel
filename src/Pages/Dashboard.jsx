@@ -73,7 +73,7 @@ function Dashboard() {
   ];
 
   const pieData = [
-    { name: "Courses", value: 4 + course },
+    { name: "Courses", value: course },
     { name: "Enquiries", value: students },
     { name: "Blogs", value: blogs },
   ];
@@ -87,11 +87,11 @@ function Dashboard() {
       </div>
 
       <div className="row g-3 mb-4 justify-content-center">
-        <StatCard icon={<FaChalkboardTeacher />} label="Courses" value={4 + course} color="#6366f1"/>
+        <StatCard icon={<FaChalkboardTeacher />} label="Courses" value={course} color="#6366f1"/>
         <StatCard icon={<FaUserGraduate />} label="Enquiries" value={students} color="#f59e0b"/>
         <StatCard icon={<FaEye />} label="Visitors" value={visitors} color="#14b8a6"/>
         <StatCard icon={<FaRegNewspaper />} label="Blogs" value={blogs} color="#64748b"/>
-        <StatCard icon={<FaCalendarAlt />} label="Events" value={8} color="#ef4444"/>
+        <StatCard icon={<FaCalendarAlt />} label="Events" value={event} color="#ef4444"/>
       </div>
 
       <div className="row g-4">

@@ -127,7 +127,7 @@ function ManageCareerApplications() {
                 <p>
                   <strong>Resume:</strong> 
                   <button 
-                    className="btn btn-link p-0 ms-2"
+                    className="btn btn-primary p-0 ms-2"
                     onClick={() => handleDownload(app.id, app.resume_filename)}
                   >
                     {app.resume_filename}
