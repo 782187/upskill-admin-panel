@@ -57,7 +57,7 @@ function Header() {
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm position-sticky top-0 z-2 w-100">
         <div className="container-fluid d-flex justify-content-between align-items-center">
-          <img src="/logo.png" className="img-fluid" width="130px" alt="Logo" />
+          <img src="/logo.png" className="img-fluid" width="170px" alt="Logo" />
           <div className="d-flex align-items-center gap-4">
             <button
               onClick={fetchData}

@@ -26,6 +26,7 @@ function Sidebar() {
     { to: "/blogs", label: "Blogs", icon: <FileText className="me-2" /> },
     { to: "/events", label: "Events", icon: <Calendar className="me-2" /> },
     { to: "/placement", label: "Placement", icon: <Briefcase className="me-2" /> },
+    { to: "/carapp", label: "Hire From Us", icon: <Briefcase className="me-2" /> },
   ];
 
   return (

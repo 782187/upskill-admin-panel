@@ -25,12 +25,14 @@ function Dashboard() {
   const [course, setCourse] = useState(0);
   const [visitors, setVisitors] = useState(0);
   const [blogs, setBlogs] = useState(0);
+  const [event, setEvent] = useState(0);
 
   useEffect(() => {
     fetchEnquiries();
     fetchCourse();
     fetchVisitors();
     fetchBlogs();
+
   }, []);
 
   const fetchEnquiries = () => {
@@ -57,12 +59,17 @@ function Dashboard() {
       .catch(() => alert("Failed to fetch blogs"));
   };
 
+  const fetchEvent = () => {
+    axios.get("https://upskill-server.onrender.com/fetch-career-applications")
+      .then((res) => setEvent(res.data.length))
+      .catch(() => alert("Failed to fetch events"));
+  }
   const barData = [
-    { name: "Courses", value: 4 + course },
+    { name: "Courses", value: course },
     { name: "Enquiries", value: students },
     { name: "Visitors", value: visitors },
     { name: "Blogs", value: blogs },
-    { name: "Events", value: 8 },
+    { name: "Events", value: event},
   ];
 
   const pieData = [

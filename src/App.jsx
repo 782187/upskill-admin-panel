@@ -11,6 +11,7 @@ import ManageBlogs from "./Pages/ManageBlogs";
 import ManageEvents from "./Pages/ManageEvents";
 import ManageEnquiry from "./Pages/ManageEnquiry";
 import ManageDemoBooking from "./Pages/ManageDemoBooking";
+import ManageCareerApplications from "./Pages/ManageCareerApplications";
 import FeedbackReview from "./Pages/FeedbackReview1";
 import ManagePlacement from "./Pages/ManagePlacment";
 import CourseCard from "./components/CourseCard";
@@ -64,6 +65,7 @@ function App() {
         <Route path="/demolecture" element={<ProtectedRoute><AdminLayout><ManageDemoBooking/></AdminLayout></ProtectedRoute>} />
         <Route path="/coursecard" element={<ProtectedRoute><AdminLayout><CourseCard /></AdminLayout></ProtectedRoute>} />
         <Route path="/feedback" element={<ProtectedRoute><AdminLayout><FeedbackReview /></AdminLayout></ProtectedRoute>} />
+        <Route path="/carapp" element={<ProtectedRoute><AdminLayout><ManageCareerApplications /></AdminLayout></ProtectedRoute>} />
         <Route path="/placement" element={<ProtectedRoute><AdminLayout><ManagePlacement /></AdminLayout></ProtectedRoute>} />
       </Routes>
     </Router>
