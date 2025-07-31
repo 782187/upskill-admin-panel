@@ -130,7 +130,7 @@ function ManageCareerApplications() {
                     className="btn btn-primary p-0 ms-2"
                     onClick={() => handleDownload(app.id, app.resume_filename)}
                   >
-                    {app.resume_filename}
+                    Download
                   </button>
                 </p>
                 <p><strong>Applied On:</strong> {app.application_date}</p>
