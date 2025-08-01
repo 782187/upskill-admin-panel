@@ -37,16 +37,20 @@ function ManageCareerApplications() {
       url: `https://upskill-server.onrender.com/download-resume?id=${id}`,
       method: 'GET',
       responseType: 'blob',
-    }).then((response) => {
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }).catch(() => alert("Failed to download resume"));
+    })
+      .then((response) => {
+        const blob = new Blob([response.data], { type: 'application/pdf' }); // ✅ MIME type
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch(() => alert("Failed to download resume"));
   };
+
 
   return (
     <div className="container py-4">
@@ -78,7 +82,7 @@ function ManageCareerApplications() {
                   <td>{app.location}</td>
                   <td>{app.position}</td>
                   <td>
-                    <button 
+                    <button
                       className="btn btn-primary btn-sm"
                       onClick={() => handleDownload(app.id, app.resume_filename)}
                     >
@@ -125,8 +129,8 @@ function ManageCareerApplications() {
                 <p><strong>Location:</strong> {app.location}</p>
                 <p><strong>Position:</strong> {app.position}</p>
                 <p>
-                  <strong>Resume:</strong> 
-                  <button 
+                  <strong>Resume:</strong>
+                  <button
                     className="btn btn-primary p-0 ms-2"
                     onClick={() => handleDownload(app.id, app.resume_filename)}
                   >
