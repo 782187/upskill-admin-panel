@@ -134,7 +134,7 @@ function ManageEnquiry() {
           filteredStudents.map((student) => (
             <div className="col-12 mb-3" key={student.id}>
               <div className="card shadow-sm border-0">
-                <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <div className="card-header bg-dark d-flex justify-content-between align-items-center" style={{color: 'white'}}>
                   <h5 className="mb-0">{student.name}</h5>
                   <button
                     className="btn btn-danger btn-sm"

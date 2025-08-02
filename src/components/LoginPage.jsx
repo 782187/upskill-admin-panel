@@ -37,7 +37,7 @@ const LoginPage = () => {
       <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px" }}>
         <div className="text-center mb-3">
           <Logo />
-          <p className="text-muted">Login to avistech dashboard</p>
+          <p className="text-muted">Login to upskill dashboard</p>
         </div>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleLogin}>
