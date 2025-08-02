@@ -132,7 +132,7 @@ function ManageDemoBooking() {
           filteredBookings.map((booking) => (
             <div className="col-12 mb-3" key={booking.id}>
               <div className="card shadow-sm border-0">
-                <div className="card-header bg-light d-flex justify-content-between align-items-center">
+                <div className="card-header bg-light d-flex justify-content-between align-items-center border border-1">
                   <h5 className="mb-0">{booking.name}</h5>
                   <button
                     className="btn btn-danger btn-sm"
