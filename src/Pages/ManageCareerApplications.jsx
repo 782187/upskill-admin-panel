@@ -39,7 +39,7 @@ function ManageCareerApplications() {
       responseType: 'blob',
     })
       .then((response) => {
-        const blob = new Blob([response.data], { type: 'application/pdf' }); // ✅ MIME type
+        const blob = new Blob([response.data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
