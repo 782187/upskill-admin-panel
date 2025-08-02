@@ -178,7 +178,7 @@ function ManageCareerApplications() {
               filteredApplications.map((app) => (
                 <div className="col-12 mb-3" key={app.id}>
                   <div className="card shadow-sm border-0">
-                    <div className="card-header bg-dark d-flex justify-content-between align-items-center" style={{color: 'white'}}>
+                    <div className="card-header bg-success d-flex justify-content-between align-items-center" style={{ color: 'white' }}>
                       <h5 className="mb-0">{app.name}</h5>
                       <div>
                         <button
@@ -199,18 +199,24 @@ function ManageCareerApplications() {
                     </div>
                     <div className="card-body">
                       <div className="row">
-                        <div className="col-md-6">
+                        <div className="col-6">
                           <p className="mb-2">
                             <strong>ID:</strong> {app.id}
                           </p>
                           <p className="mb-2">
-                            <strong>Email:</strong> <a href={`mailto:${app.email}`}>{app.email}</a>
+                            <strong>Email:</strong>{" "}
+                            <a href={`mailto:${app.email}`} className="text-decoration-none">
+                              {app.email}
+                            </a>
                           </p>
                           <p className="mb-2">
-                            <strong>Phone:</strong> {app.phone}
+                            <strong>Phone:</strong>{" "}
+                            <a href={`tel:${app.phone}`} className="text-decoration-none">
+                              {app.phone}
+                            </a>
                           </p>
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-6">
                           <p className="mb-2">
                             <strong>Location:</strong> {app.location}
                           </p>
@@ -218,7 +224,8 @@ function ManageCareerApplications() {
                             <strong>Position:</strong> {app.position}
                           </p>
                           <p className="mb-2">
-                            <strong>Applied On:</strong> {new Date(app.application_date).toLocaleDateString()}
+                            <strong>Applied On:</strong>{" "}
+                            {new Date(app.application_date).toLocaleDateString()}
                           </p>
                         </div>
                       </div>

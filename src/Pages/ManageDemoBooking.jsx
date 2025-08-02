@@ -132,7 +132,7 @@ function ManageDemoBooking() {
           filteredBookings.map((booking) => (
             <div className="col-12 mb-3" key={booking.id}>
               <div className="card shadow-sm border-0">
-                <div className="card-header bg-dark d-flex justify-content-between align-items-center" style={{color: 'white'}}>
+                <div className="card-header bg-primary d-flex justify-content-between align-items-center" style={{ color: 'white' }}>
                   <h5 className="mb-0">{booking.name}</h5>
                   <button
                     className="btn btn-danger btn-sm"
@@ -149,7 +149,10 @@ function ManageDemoBooking() {
                         <strong>ID:</strong> {booking.id}
                       </p>
                       <p className="mb-2">
-                        <strong>Contact:</strong> {booking.contact}
+                        <strong>Contact:</strong>{" "}
+                        <a href={`tel:${booking.contact}`} className="text-decoration-none">
+                          {booking.contact}
+                        </a>
                       </p>
                     </div>
                     <div className="col-6">
@@ -164,7 +167,9 @@ function ManageDemoBooking() {
                   </div>
                   <p className="mb-0">
                     <strong>Email:</strong>{" "}
-                    <a href={`mailto:${booking.email}`}>{booking.email}</a>
+                    <a href={`mailto:${booking.email}`} className="text-decoration-none">
+                      {booking.email}
+                    </a>
                   </p>
                 </div>
               </div>
@@ -173,9 +178,7 @@ function ManageDemoBooking() {
         ) : (
           <div className="col-12">
             <div className="alert alert-info">
-              {searchTerm
-                ? "No matching bookings found"
-                : "No demo bookings found"}
+              {searchTerm ? "No matching bookings found" : "No demo bookings found"}
             </div>
           </div>
         )}

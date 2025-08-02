@@ -60,7 +60,7 @@ function Header() {
   return (
     <>
       <nav className={`navbar ${isDarkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"} shadow-sm sticky-top z-3`}>
-        <div className="container-fluid d-flex justify-content-between align-items-center flex-wrap px-3 py-2">
+        <div className="container-fluid d-flex justify-content-between align-items-center flex-wrap px-3">
           <span className="fw-bold fs-5 text-primary">Admin Panel</span>
           <div className="d-flex align-items-center gap-2 flex-wrap mt-2 mt-md-0">
             <button

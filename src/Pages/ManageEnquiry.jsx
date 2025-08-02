@@ -134,7 +134,7 @@ function ManageEnquiry() {
           filteredStudents.map((student) => (
             <div className="col-12 mb-3" key={student.id}>
               <div className="card shadow-sm border-0">
-                <div className="card-header bg-dark d-flex justify-content-between align-items-center" style={{color: 'white'}}>
+                <div className="card-header bg-primary d-flex justify-content-between align-items-center" style={{ color: 'white' }}>
                   <h5 className="mb-0">{student.name}</h5>
                   <button
                     className="btn btn-danger btn-sm"
@@ -151,7 +151,10 @@ function ManageEnquiry() {
                         <strong>ID:</strong> {student.id}
                       </p>
                       <p className="mb-2">
-                        <strong>Contact:</strong> {student.phone}
+                        <strong>Contact:</strong>{" "}
+                        <a href={`tel:${student.phone}`} className="text-decoration-none">
+                          {student.phone}
+                        </a>
                       </p>
                     </div>
                     <div className="col-6">
@@ -166,7 +169,9 @@ function ManageEnquiry() {
                   </div>
                   <p className="mb-0">
                     <strong>Email:</strong>{" "}
-                    <a href={`mailto:${student.email}`}>{student.email}</a>
+                    <a href={`mailto:${student.email}`} className="text-decoration-none">
+                      {student.email}
+                    </a>
                   </p>
                 </div>
               </div>
@@ -175,9 +180,7 @@ function ManageEnquiry() {
         ) : (
           <div className="col-12">
             <div className="alert alert-info">
-              {searchTerm
-                ? "No matching enquiries found"
-                : "No enquiries found"}
+              {searchTerm ? "No matching enquiries found" : "No enquiries found"}
             </div>
           </div>
         )}
