@@ -3,16 +3,38 @@ import axios from "axios";
 
 function ManageCareerApplications() {
   const [applications, setApplications] = useState([]);
+  const [filteredApplications, setFilteredApplications] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchApplications();
   }, []);
 
+  useEffect(() => {
+    const results = applications.filter(application =>
+      Object.values(application).some(
+        value =>
+          value &&
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+    setFilteredApplications(results);
+  }, [searchTerm, applications]);
+
   const fetchApplications = () => {
+    setIsLoading(true);
     axios
       .get("https://upskill-server.onrender.com/fetch-career-applications")
-      .then((res) => setApplications(res.data))
-      .catch(() => alert("Failed to fetch career applications"));
+      .then((res) => {
+        setApplications(res.data);
+        setFilteredApplications(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        alert("Failed to fetch career applications");
+        setIsLoading(false);
+      });
   };
 
   const handleDelete = (id) => {
@@ -24,6 +46,7 @@ function ManageCareerApplications() {
         .then((res) => {
           if (res.data.status === "success") {
             setApplications((prev) => prev.filter((item) => item.id !== id));
+            setFilteredApplications((prev) => prev.filter((item) => item.id !== id));
           } else {
             alert("Delete failed: " + res.data.message);
           }
@@ -43,7 +66,7 @@ function ManageCareerApplications() {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', filename);
+        link.setAttribute('download', filename || `resume_${id}.pdf`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -51,102 +74,170 @@ function ManageCareerApplications() {
       .catch(() => alert("Failed to download resume"));
   };
 
-
   return (
     <div className="container py-4">
       <h2 className="fw-bold mb-4 text-center">Career Applications</h2>
 
-      <div className="table-responsive d-none d-lg-block">
-        <table className="table table-bordered table-striped text-center">
-          <thead className="table-light">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Location</th>
-              <th>Position</th>
-              <th>Resume</th>
-              <th>Created At</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {applications.length > 0 ? (
-              applications.map((app) => (
-                <tr key={app.id}>
-                  <td>{app.id}</td>
-                  <td>{app.name}</td>
-                  <td>{app.email}</td>
-                  <td>{app.phone}</td>
-                  <td>{app.location}</td>
-                  <td>{app.position}</td>
-                  <td>
-                    <button
-                      className="btn btn-primary btn-sm"
-                      onClick={() => handleDownload(app.id, app.resume_filename)}
-                    >
-                      Download
-                    </button>
-                  </td>
-                  <td>{app.application_date}</td>
-                  <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(app.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="9">No career applications found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className="mb-4">
+        <div className="input-group">
+          <span className="input-group-text bg-light">
+            <i className="bi bi-search"></i>
+          </span>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search applications..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          {searchTerm && (
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => setSearchTerm("")}
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="row d-block d-lg-none">
-        {applications.length > 0 ? (
-          applications.map((app) => (
-            <div className="col-12 mb-3" key={app.id}>
-              <div className="card p-3 shadow-sm">
-                <div className="d-flex justify-content-between">
-                  <h5>{app.name}</h5>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => handleDelete(app.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-                <p><strong>ID:</strong> {app.id}</p>
-                <p><strong>Email:</strong> {app.email}</p>
-                <p><strong>Phone:</strong> {app.phone}</p>
-                <p><strong>Location:</strong> {app.location}</p>
-                <p><strong>Position:</strong> {app.position}</p>
-                <p>
-                  <strong>Resume:</strong>
-                  <button
-                    className="btn btn-primary p-0 ms-2"
-                    onClick={() => handleDownload(app.id, app.resume_filename)}
-                  >
-                    Download
-                  </button>
-                </p>
-                <p><strong>Applied On:</strong> {app.application_date}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="col-12">
-            <div className="alert alert-warning">No career applications found.</div>
+      {isLoading ? (
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
-        )}
-      </div>
+          <p className="mt-2">Loading applications...</p>
+        </div>
+      ) : (
+        <>
+          <div className="table-responsive d-none d-lg-block">
+            <table className="table table-hover table-bordered rounded">
+              <thead className="table-dark">
+                <tr>
+                  <th className="text-center">ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Location</th>
+                  <th>Position</th>
+                  <th className="text-center">Resume</th>
+                  <th>Applied On</th>
+                  <th className="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredApplications.length > 0 ? (
+                  filteredApplications.map((app) => (
+                    <tr key={app.id}>
+                      <td className="text-center">{app.id}</td>
+                      <td className="fw-semibold">{app.name}</td>
+                      <td>
+                        <a href={`mailto:${app.email}`}>{app.email}</a>
+                      </td>
+                      <td>{app.phone}</td>
+                      <td>{app.location}</td>
+                      <td>{app.position}</td>
+                      <td className="text-center">
+                        <button
+                          className="btn btn-primary btn-sm px-3"
+                          onClick={() => handleDownload(app.id, app.resume_filename)}
+                          title="Download Resume"
+                        >
+                          <i className="bi bi-download"></i>
+                        </button>
+                      </td>
+                      <td>{new Date(app.application_date).toLocaleDateString()}</td>
+                      <td className="text-center">
+                        <button
+                          className="btn btn-danger btn-sm px-3"
+                          onClick={() => handleDelete(app.id)}
+                          title="Delete Application"
+                        >
+                          <i className="bi bi-trash-fill"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="9" className="text-center py-4">
+                      <div className="text-muted">
+                        {searchTerm
+                          ? "No matching applications found"
+                          : "No career applications found"}
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="row d-block d-lg-none">
+            {filteredApplications.length > 0 ? (
+              filteredApplications.map((app) => (
+                <div className="col-12 mb-3" key={app.id}>
+                  <div className="card shadow-sm border-0">
+                    <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                      <h5 className="mb-0">{app.name}</h5>
+                      <div>
+                        <button
+                          className="btn btn-primary btn-sm me-2"
+                          onClick={() => handleDownload(app.id, app.resume_filename)}
+                          title="Download Resume"
+                        >
+                          <i className="bi bi-download"></i>
+                        </button>
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(app.id)}
+                          title="Delete Application"
+                        >
+                          <i className="bi bi-trash-fill"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-md-6">
+                          <p className="mb-2">
+                            <strong>ID:</strong> {app.id}
+                          </p>
+                          <p className="mb-2">
+                            <strong>Email:</strong> <a href={`mailto:${app.email}`}>{app.email}</a>
+                          </p>
+                          <p className="mb-2">
+                            <strong>Phone:</strong> {app.phone}
+                          </p>
+                        </div>
+                        <div className="col-md-6">
+                          <p className="mb-2">
+                            <strong>Location:</strong> {app.location}
+                          </p>
+                          <p className="mb-2">
+                            <strong>Position:</strong> {app.position}
+                          </p>
+                          <p className="mb-2">
+                            <strong>Applied On:</strong> {new Date(app.application_date).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-12">
+                <div className="alert alert-info">
+                  {searchTerm
+                    ? "No matching applications found"
+                    : "No career applications found"}
+                </div>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

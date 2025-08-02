@@ -55,7 +55,6 @@ function ManageEnquiry() {
     <div className="container py-4">
       <h2 className="fw-bold mb-4 text-center">Student Enquiries</h2>
 
-      {/* Search Bar */}
       <div className="mb-4">
         <div className="input-group">
           <span className="input-group-text bg-light">
@@ -79,7 +78,6 @@ function ManageEnquiry() {
         </div>
       </div>
 
-      {/* Desktop View */}
       <div className="table-responsive d-none d-lg-block">
         <table className="table table-hover table-bordered rounded">
           <thead className="table-dark">
@@ -131,7 +129,6 @@ function ManageEnquiry() {
         </table>
       </div>
 
-      {/* Mobile View */}
       <div className="row d-block d-lg-none">
         {filteredStudents.length > 0 ? (
           filteredStudents.map((student) => (
