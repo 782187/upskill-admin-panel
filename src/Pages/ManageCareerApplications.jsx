@@ -178,7 +178,7 @@ function ManageCareerApplications() {
               filteredApplications.map((app) => (
                 <div className="col-12 mb-3" key={app.id}>
                   <div className="card shadow-sm border-0">
-                    <div className="card-header bg-success d-flex justify-content-between align-items-center" style={{ color: 'white' }}>
+                    <div className="card-header bg-light d-flex justify-content-between align-items-center">
                       <h5 className="mb-0">{app.name}</h5>
                       <div>
                         <button
