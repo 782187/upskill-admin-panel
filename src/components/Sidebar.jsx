@@ -54,7 +54,7 @@ function Sidebar() {
           transition: "all 0.3s ease",
         }}
       >
-        <div className="sidebar-header d-flex align-items-center justify-content-center py-4 border-bottom border-secondary">
+        <div className="sidebar-header d-flex align-items-start justify-content-start py-3 border-bottom border-secondary">
           <img
             src="/logoupskill.png"
             className="img-fluid"

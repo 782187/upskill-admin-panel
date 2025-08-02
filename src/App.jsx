@@ -26,7 +26,7 @@ const AdminLayout = ({ children }) => (
     <Sidebar />
     <div className="flex-grow-1">
       <Header />
-      <div className="p-3">{children}</div>
+      <div>{children}</div>
     </div>
   </div>
 );
