@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ManageEnquiry() {
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
@@ -23,7 +23,7 @@ function ManageEnquiry() {
 
   const fetchEnquiries = () => {
     axios
-      .get("https://upskill-server.onrender.com/get-enquiries")
+      .get(`${API_URL}/get-enquiries`)
       .then((res) => {
         setStudents(res.data);
         setFilteredStudents(res.data);
@@ -34,7 +34,7 @@ function ManageEnquiry() {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this enquiry?")) {
       axios
-        .post("https://upskill-server.onrender.com/delete-enquiry", null, {
+        .post(`${API_URL}/delete-enquiry`, null, {
           params: { id },
         })
         .then((res) => {

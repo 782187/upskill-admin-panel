@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ManageEvents() {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({ title: "", photo: null });
@@ -8,7 +8,7 @@ function ManageEvents() {
   const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
-    fetch("https://upskill-server.onrender.com/getEvents")
+    fetch(`${API_URL}/getEvents`)
       .then((res) => res.json())
       .then((data) => {
         const formatted = data.map((event) => ({
@@ -46,7 +46,7 @@ function ManageEvents() {
 
     setLoading(true);
     try {
-      const res = await fetch("https://upskill-server.onrender.com/addEvent", {
+      const res = await fetch(`${API_URL}/addEvent`, {
         method: "POST",
         body: payload,
       });
@@ -55,7 +55,7 @@ function ManageEvents() {
         setFormData({ title: "", photo: null });
         setMessage("Event added successfully!");
 
-        const updated = await fetch("https://upskill-server.onrender.com/getEvents").then((res) =>
+        const updated = await fetch(`${API_URL}/getEvents`).then((res) =>
           res.json()
         );
         const formatted = updated.map((event) => ({
@@ -78,7 +78,7 @@ function ManageEvents() {
   const handleDelete = async (id) => {
     setDeletingId(id);
     try {
-      const res = await fetch(`https://upskill-server.onrender.com/deleteEvent?id=${id}`, {
+      const res = await fetch(`${API_URL}/deleteEvent?id=${id}`, {
         method: "DELETE",
       });
 

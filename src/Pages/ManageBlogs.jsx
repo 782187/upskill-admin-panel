@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ManageBlogs() {
   const [blogs, setBlogs] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
@@ -17,7 +17,7 @@ function ManageBlogs() {
 
   const fetchBlog = async () => {
     try {
-      const res = await axios.get("https://upskill-server.onrender.com/getblog");
+      const res = await axios.get(`${API_URL}/getblog`);
       setBlogs(res.data);
     } catch (err) {
       console.error("Cannot fetch blogs", err);
@@ -47,7 +47,7 @@ function ManageBlogs() {
     }
 
     try {
-      await axios.post("https://upskill-server.onrender.com/addblog", data);
+      await axios.post(`${API_URL}/addblog`, data);
       setSuccessMessage("Blog posted successfully!");
       setFormData({ title: "", shortDesc: "", content: "", image: null });
       fetchBlog();
@@ -61,7 +61,7 @@ function ManageBlogs() {
     if (window.confirm("Are you sure you want to delete this blog?")) {
       axios({
         method: "post",
-        url: "https://upskill-server.onrender.com/deleteblog",
+        url: `${API_URL}/deleteblog`,
         params: { id: id },
       })
       .then(() => {

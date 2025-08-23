@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ManageCourse() {
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function ManageCourse() {
     formData.append("coursepdf", coursePdf); 
 
     try {
-      const response = await axios.post("https://upskill-server.onrender.com/uploadCourse", formData, {
+      const response = await axios.post(`${API_URL}/uploadCourse`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
