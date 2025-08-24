@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
 
 function CourseCard() {
   const [courses, setCourses] = useState([]);
@@ -12,7 +11,7 @@ function CourseCard() {
 
   const fetchCourses = () => {
     axios
-      .get(`${API_URL}/get-courses`)
+      .get(`https://upskill-server.onrender.com/get-courses`)
       .then((res) => {
         setCourses(res.data);
       })
@@ -25,7 +24,7 @@ function CourseCard() {
     if (window.confirm("Are you sure you want to delete this course?")) {
       axios({
         method: "post",
-        url: `${API_URL}/delete-course`,
+        url: `https://upskill-server.onrender.com/delete-course`,
         params: { id: id },
       })
         .then((res) => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL;
+
 function ManagePlacement() {
   const [placements, setPlacements] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
@@ -18,7 +18,7 @@ function ManagePlacement() {
 
   const fetchPlacements = async () => {
     try {
-      const res = await axios.get(`${API_URL}/getplacement`);
+      const res = await axios.get(`https://upskill-server.onrender.com/getplacement`);
       setPlacements(res.data);
     } catch (err) {
       console.error("Cannot fetch placements", err);
@@ -45,7 +45,7 @@ function ManagePlacement() {
     if (formData.companyLogo) data.append("companyLogo", formData.companyLogo);
 
     try {
-      await axios.post(`${API_URL}/addplacement`, data);
+      await axios.post(`https://upskill-server.onrender.com/addplacement`, data);
       setSuccessMessage("Placement record added successfully!");
       setFormData({
         name: "",
@@ -64,7 +64,7 @@ function ManagePlacement() {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this placement?")) {
       axios
-        .post(`${API_URL}/deleteplacement`, null, {
+        .post(`https://upskill-server.onrender.com/deleteplacement`, null, {
           params: { id },
         })
         .then(() => {

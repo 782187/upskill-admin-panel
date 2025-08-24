@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-const API_URL = import.meta.env.VITE_API_URL;
 const firebaseConfig = {
   apiKey: "AIzaSyCHxauU6UEJJLOlbljyI9tEPJEWOOAu8aI",
   authDomain: "pushnotifications-b2b51.firebaseapp.com",
@@ -32,7 +31,7 @@ export const requestNotificationPermission = async (adminId) => {
     if (token) {
       console.log("✅ FCM token:", token);
 
-      const response = await fetch(`${API_URL}/register-fcm-token`, {
+      const response = await fetch(`https://upskill-server.onrender.com/register-fcm-token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
