@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bell, User, LogOut, Moon, Sun, ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Header() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [fetchEnquiry, setFetchEnquiry] = useState(0);
@@ -25,7 +25,7 @@ function Header() {
 
   const fetchEnquiries = () => {
     axios
-      .get(`https://upskill-server.onrender.com/get-enquiries`)
+      .get(`${API_URL}/get-enquiries`)
       .then((res) => {
         setFetchEnquiry(res.data.length);
         if (res.data.length > 0) {

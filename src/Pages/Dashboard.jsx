@@ -10,7 +10,7 @@ import {
 import "./Dashboard.css";
 import EnquiryNotificationToast from "./EnquiryNotificationToast";
 import { onMessageListener } from "../components/firebase";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Dashboard() {
   useEffect(() => {
   const unsubscribe = onMessageListener().then((payload) => {
@@ -36,31 +36,31 @@ function Dashboard() {
   }, []);
 
   const fetchEnquiries = () => {
-    axios.get(`https://upskill-server.onrender.com/get-enquiries`)
+    axios.get(`${API_URL}/get-enquiries`)
       .then((res) => setStudents(res.data.length))
       .catch(() => alert("Failed to fetch enquiries"));
   };
 
   const fetchCourse = () => {
-    axios.get(`https://upskill-server.onrender.com/get-courses`)
+    axios.get(`${API_URL}/get-courses`)
       .then((res) => setCourse(res.data.length))
       .catch(() => alert("Failed to fetch courses"));
   };
 
   const fetchVisitors = () => {
-    axios.get(`https://upskill-server.onrender.com/getVisits`)
+    axios.get(`${API_URL}/getVisits`)
       .then((res) => setVisitors(res.data.totalVisits))
       .catch(() => alert("Failed to fetch visitors"));
   };
 
   const fetchBlogs = () => {
-    axios.get(`https://upskill-server.onrender.com/getblog`)
+    axios.get(`${API_URL}/getblog`)
       .then((res) => setBlogs(res.data.length))
       .catch(() => alert("Failed to fetch blogs"));
   };
 
   const fetchEvent = () => {
-    axios.get(`https://upskill-server.onrender.com/fetch-career-applications`)
+    axios.get(`${API_URL}/fetch-career-applications`)
       .then((res) => setEvent(res.data.length))
       .catch(() => alert("Failed to fetch events"));
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ManageCareerApplications() {
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
@@ -25,7 +25,7 @@ function ManageCareerApplications() {
   const fetchApplications = () => {
     setIsLoading(true);
     axios
-      .get(`https://upskill-server.onrender.com/fetch-career-applications`)
+      .get(`${API_URL}/fetch-career-applications`)
       .then((res) => {
         setApplications(res.data);
         setFilteredApplications(res.data);
@@ -40,7 +40,7 @@ function ManageCareerApplications() {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this application?")) {
       axios
-        .post(`https://upskill-server.onrender.com/delete-career-application`, null, {
+        .post(`${API_URL}/delete-career-application`, null, {
           params: { id },
         })
         .then((res) => {
@@ -57,7 +57,7 @@ function ManageCareerApplications() {
 
   const handleDownload = (id, filename) => {
     axios({
-      url: `https://upskill-server.onrender.com/download-resume?id=${id}`,
+      url: `${API_URL}/download-resume?id=${id}`,
       method: 'GET',
       responseType: 'blob',
     })

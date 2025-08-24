@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Star, Trash2 } from "lucide-react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function FeedbackReview() {
   const [name, setName] = useState("");
   const [course, setCourse] = useState("");
@@ -12,7 +12,7 @@ function FeedbackReview() {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get(`https://upskill-server.onrender.com/FetchFeedbackServlet`);
+      const res = await axios.get(`${API_URL}/FetchFeedbackServlet`);
       setReviews(res.data);
     } catch (error) {
       console.error("Error fetching reviews:", error);
@@ -35,7 +35,7 @@ function FeedbackReview() {
       formData.append("photo", photo);
     }
     try {
-      await axios.post(`https://upskill-server.onrender.com/SubmitFeedbackServlet`, formData, {
+      await axios.post(`${API_URL}/SubmitFeedbackServlet`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -57,7 +57,7 @@ function FeedbackReview() {
       const formData = new FormData();
       formData.append("name", review.name);
       formData.append("course", review.course);
-      await axios.post(`https://upskill-server.onrender.com/DeleteFeedbackServlet`, formData, {
+      await axios.post(`${API_URL}/DeleteFeedbackServlet`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

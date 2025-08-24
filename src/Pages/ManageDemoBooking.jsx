@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function ManageDemoBooking() {
   const [bookings, setBookings] = useState([]);
   const [filteredBookings, setFilteredBookings] = useState([]);
@@ -23,7 +23,7 @@ function ManageDemoBooking() {
 
   const fetchBookings = () => {
     axios
-      .get(`https://upskill-server.onrender.com/fetch-demo-bookings`)
+      .get(`${API_URL}/fetch-demo-bookings`)
       .then((res) => {
         setBookings(res.data);
         setFilteredBookings(res.data);
@@ -34,7 +34,7 @@ function ManageDemoBooking() {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this demo booking?")) {
       axios
-        .post(`https://upskill-server.onrender.com/delete-demo-booking`, null, {
+        .post(`${API_URL}/delete-demo-booking`, null, {
           params: { id },
         })
         .then((res) => {
